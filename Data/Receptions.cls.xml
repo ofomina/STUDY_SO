@@ -5,6 +5,7 @@
 Описание класса "Receptions" (приемы)</Description>
 <Super>%Persistent,%XML.Adaptor</Super>
 <TimeCreated>64113,53464.041836</TimeCreated>
+<ClassDefinitionError>1</ClassDefinitionError>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -66,13 +67,16 @@
 <Relationship>1</Relationship>
 </Property>
 
-<Storage name="Default">
-<Type>%Library.CacheStorage</Type>
-<DataLocation>^Data.ReceptionsD</DataLocation>
-<DefaultData>ReceptionsDefaultData</DefaultData>
-<IdLocation>^Data.ReceptionsD</IdLocation>
-<IndexLocation>^Data.ReceptionsI</IndexLocation>
-<StreamLocation>^Data.ReceptionsS</StreamLocation>
+<UDLText name="T">
+<Category>error</Category>
+<Content><![CDATA[
+ClassMethod GetAll()(
+
+s query="SELECT * FROM Data.Doctors"
+
+
+Storage Default
+{
 <Data name="ReceptionsDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -93,6 +97,15 @@
 <Value>PersonId</Value>
 </Value>
 </Data>
-</Storage>
+<DataLocation>^Data.ReceptionsD</DataLocation>
+<DefaultData>ReceptionsDefaultData</DefaultData>
+<IdLocation>^Data.ReceptionsD</IdLocation>
+<IndexLocation>^Data.ReceptionsI</IndexLocation>
+<StreamLocation>^Data.ReceptionsS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+]]></Content>
+</UDLText>
 </Class>
 </Export>

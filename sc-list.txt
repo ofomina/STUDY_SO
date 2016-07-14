@@ -1,12 +1,5 @@
-/Data
 <cspapp>
-<<<<<<< HEAD
-=======
->>>>>>> a915e35ee9503f7a37198ed3361cad8424d6a325
-Data.Doctors.cls
-Data.MKB.cls
-Data.Person.cls
-Data.Receptions.cls
+Data.pkg
 Dictionary.pkg
 FCE.pkg
 Simple.pkg
