@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.OMSPolices">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64113,53736.52022</TimeCreated>
+
+<Property name="Series">
+<Description>
+Svoistvo dlya serii</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Number">
+<Description>
+Svoistvo dlya nomera </Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="SMO">
+<Description>
+SMO iz Data.SMO</Description>
+<Type>Data.SMO</Type>
+</Property>
+
+<ForeignKey name="SMOForeignKey">
+<Description>
+Vne6nii klyu4</Description>
+<Properties>SMO</Properties>
+<ReferencedClass>Data.SMO</ReferencedClass>
+</ForeignKey>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.OMSPolicesD</DataLocation>
+<DefaultData>OMSPolicesDefaultData</DefaultData>
+<IdLocation>^Data.OMSPolicesD</IdLocation>
+<IndexLocation>^Data.OMSPolicesI</IndexLocation>
+<StreamLocation>^Data.OMSPolicesS</StreamLocation>
+<Data name="OMSPolicesDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Series</Value>
+</Value>
+<Value name="3">
+<Value>Number</Value>
+</Value>
+<Value name="4">
+<Value>SMO</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
