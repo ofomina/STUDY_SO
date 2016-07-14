@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="CRUD.MKB">
+<Super>%Base</Super>
+<TimeCreated>64114,33870.225706</TimeCreated>
+
+<Method name="Get">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+		if $data(id) {
+			s rset = ##class(Data.MKB).GetOne()				
+		} else {
+			s rset = ##class(Data.MKB).GetAll()
+						
+		}	
+		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.mkb")
+		q $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
