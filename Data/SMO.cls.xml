@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.SMO">
+<Description>
+Класс "SMO" страховые мед организации, свойства- название и код организаций</Description>
+<Super>%Persistent</Super>
+<TimeCreated>64113,54234.98949</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+</Property>
+
+<Property name="CodeSMO">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Description>
+Класс Страховые мед организации, свойства имя страховой организации, код страховой организации</Description>
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.SMOD</DataLocation>
+<DefaultData>SMODefaultData</DefaultData>
+<IdLocation>^Data.SMOD</IdLocation>
+<IndexLocation>^Data.SMOI</IndexLocation>
+<StreamLocation>^Data.SMOS</StreamLocation>
+<Data name="SMODefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>CodeSMO</Value>
+</Value>
+</Data>
+</Storage>
+
+<UDLText name="T">
+<Content><![CDATA[
+/// Класс "SMO" Страховые медорганизации, свойства название страховой организации, код страховой организации
+
+]]></Content>
+</UDLText>
+</Class>
+</Export>
