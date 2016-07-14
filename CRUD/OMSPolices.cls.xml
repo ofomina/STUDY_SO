@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="CRUD.OMSPolices">
+<Super>%Base</Super>
+<TimeCreated>64114,37433.937774</TimeCreated>
+
+<Method name="Get">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+		if $data(id) {
+			s rset = ##class(Data.OMSPolices).GetOne()				
+		} else {
+			s rset = ##class(Data.OMSPolices).GetAll()
+						
+		}	
+		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.omspolices")
+		q $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
