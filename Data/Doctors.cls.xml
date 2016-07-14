@@ -15,7 +15,7 @@
 
 <Property name="Reception">
 <Type>Data.Receptions</Type>
-<Cardinality>one</Cardinality>
+<Cardinality>many</Cardinality>
 <Inverse>Doctor</Inverse>
 <Relationship>1</Relationship>
 </Property>

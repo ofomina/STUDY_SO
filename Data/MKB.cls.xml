@@ -38,7 +38,7 @@
 <Description>
 Внешний ключ  для поля код мкб цеплямем в  data.receptions</Description>
 <Type>Data.Receptions</Type>
-<Cardinality>one</Cardinality>
+<Cardinality>many</Cardinality>
 <Inverse>Diagnosis</Inverse>
 <Relationship>1</Relationship>
 </Property>
