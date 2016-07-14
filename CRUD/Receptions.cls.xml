@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="CRUD.Receptions">
+<Description>
+Проекция класса приемов</Description>
 <Super>%Base</Super>
 <TimeCreated>64114,37345.155781</TimeCreated>
 
