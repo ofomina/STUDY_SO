@@ -5,6 +5,7 @@
 Описание класса "Receptions" (приемы)</Description>
 <Super>%Persistent,%XML.Adaptor</Super>
 <TimeCreated>64113,53464.041836</TimeCreated>
+<ClassDefinitionError>1</ClassDefinitionError>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -66,6 +67,31 @@
 <Relationship>1</Relationship>
 </Property>
 
+<<<<<<< HEAD
+<UDLText name="T">
+<Category>error</Category>
+<Content><![CDATA[
+ClassMethod GetAll()(
+
+s query="SELECT * FROM Data.Doctors"
+
+
+Storage Default
+{
+=======
+<Method name="GetAll">
+<Description>
+Процедура получения всех записей о посещениях путем SQL запроса</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.Receptions"	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.ReceptionsD</DataLocation>
@@ -73,6 +99,7 @@
 <IdLocation>^Data.ReceptionsD</IdLocation>
 <IndexLocation>^Data.ReceptionsI</IndexLocation>
 <StreamLocation>^Data.ReceptionsS</StreamLocation>
+>>>>>>> a50578e1b29bb4e9f333cd706c2413681d24e2d6
 <Data name="ReceptionsDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -92,7 +119,19 @@
 <Value name="6">
 <Value>PersonId</Value>
 </Value>
+<Value name="7">
+<Value>Person</Value>
+</Value>
 </Data>
-</Storage>
+<DataLocation>^Data.ReceptionsD</DataLocation>
+<DefaultData>ReceptionsDefaultData</DefaultData>
+<IdLocation>^Data.ReceptionsD</IdLocation>
+<IndexLocation>^Data.ReceptionsI</IndexLocation>
+<StreamLocation>^Data.ReceptionsS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+]]></Content>
+</UDLText>
 </Class>
 </Export>
