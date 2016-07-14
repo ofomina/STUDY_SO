@@ -1,4 +1,5 @@
 <cspapp>
+Data.MKB.cls
 Dictionary.pkg
 FCE.pkg
 Simple.pkg
