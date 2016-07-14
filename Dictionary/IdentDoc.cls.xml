@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Dictionary.IdentDoc">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64112,57058.098758</TimeCreated>
+
+<Property name="Type">
+<Type>%String</Type>
+</Property>
+
+<Property name="Series">
+<Type>%String</Type>
+</Property>
+
+<Property name="Number">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Dictionary.IdentDocD</DataLocation>
+<DefaultData>IdentDocDefaultData</DefaultData>
+<IdLocation>^Dictionary.IdentDocD</IdLocation>
+<IndexLocation>^Dictionary.IdentDocI</IndexLocation>
+<StreamLocation>^Dictionary.IdentDocS</StreamLocation>
+<Data name="IdentDocDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Type</Value>
+</Value>
+<Value name="3">
+<Value>Series</Value>
+</Value>
+<Value name="4">
+<Value>Number</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

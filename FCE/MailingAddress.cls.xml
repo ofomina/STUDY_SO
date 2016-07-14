@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.MailingAddress">
+<Super>%SerialObject,FCE.Address</Super>
+<TimeCreated>64111,36356.016569</TimeCreated>
+
+<Storage name="Default">
+<Type>%Library.CacheSerialState</Type>
+<DataLocation>^FCE.MailingAddressD</DataLocation>
+<DefaultData>MailingAddressDefaultData</DefaultData>
+<IdLocation>^FCE.MailingAddressD</IdLocation>
+<IndexLocation>^FCE.MailingAddressI</IndexLocation>
+<State>MailingAddressState</State>
+<StreamLocation>^FCE.MailingAddressS</StreamLocation>
+<Data name="MailingAddressDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+<Data name="MailingAddressState">
+<Value name="1">
+<Value>Street</Value>
+</Value>
+<Value name="2">
+<Value>City</Value>
+</Value>
+<Value name="3">
+<Value>State</Value>
+</Value>
+<Value name="4">
+<Value>Zip</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

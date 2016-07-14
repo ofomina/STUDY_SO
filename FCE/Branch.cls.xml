@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Branch">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>64111,34210.530054</TimeCreated>
+
+<Property name="Phone">
+<Type>FCE.PhoneNumber</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="PhoneIdx">
+<Properties>Phone</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Address">
+<Type>FCE.RealEstate</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="AddressIdx">
+<Properties>Address</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="NationalCurrency">
+<Description>
+Currency used by this branch's nation</Description>
+<Type>FCE.Currency</Type>
+<InitialExpression>"USD"</InitialExpression>
+</Property>
+
+<Property name="Opens">
+<Description>
+Time branch opens</Description>
+<Type>%Time</Type>
+<Parameter name="MAXVAL" value="$ztimeh(&quot;12:00n&quot;)"/>
+<Parameter name="MINVAL" value="$ztimeh(&quot;6:00am&quot;)"/>
+</Property>
+
+<Property name="Closes">
+<Description>
+Time branch closes</Description>
+<Type>%Time</Type>
+<Parameter name="MAXVAL" value="$ztimeh(&quot;10:00pm&quot;)"/>
+<Parameter name="MINVAL" value="$ztimeh(&quot;1:00pm&quot;)"/>
+</Property>
+
+<Property name="DurationOpen">
+<Type>%Time</Type>
+<Calculated>1</Calculated>
+<SqlComputeCode><![CDATA[
+		if ({Closes} '= "") && ({Opens} '= "")
+			{set {DurationOpen} = {Closes} - {Opens}}
+		else 
+			{set {DurationOpen} = ""}
+
+	]]></SqlComputeCode>
+<SqlComputed>1</SqlComputed>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^FCE.BranchD</DataLocation>
+<DefaultData>BranchDefaultData</DefaultData>
+<IdLocation>^FCE.BranchD</IdLocation>
+<IndexLocation>^FCE.BranchI</IndexLocation>
+<StreamLocation>^FCE.BranchS</StreamLocation>
+<ExtentSize>8</ExtentSize>
+<Data name="BranchDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Phone</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+<Value name="4">
+<Value>NationalCurrency</Value>
+</Value>
+<Value name="5">
+<Value>Opens</Value>
+</Value>
+<Value name="6">
+<Value>Closes</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.88</AverageFieldSize>
+</Property>
+<Property name="Address">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.13</AverageFieldSize>
+</Property>
+<Property name="Closes">
+<Selectivity>12.5000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="NationalCurrency">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="Opens">
+<Selectivity>12.5000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="Phone">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>12</AverageFieldSize>
+</Property>
+<SQLMap name="AddressIdx">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="PhoneIdx">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+
+<Property name="ATMs">
+<Type>FCE.ATM</Type>
+<Cardinality>children</Cardinality>
+<Inverse>Branch</Inverse>
+<Relationship>1</Relationship>
+</Property>
+</Class>
+</Export>

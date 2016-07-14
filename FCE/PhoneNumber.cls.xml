@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.PhoneNumber">
+<Super>%String</Super>
+<TimeCreated>64111,37504.283472</TimeCreated>
+
+<Parameter name="MAXLEN">
+<Default>12</Default>
+</Parameter>
+
+<Parameter name="PATTERN">
+<Default>3n1"-"3n1"-"4n</Default>
+</Parameter>
+
+<Method name="LogicalToDisplay">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>%val:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<ServerOnly>0</ServerOnly>
+<Implementation><![CDATA[	return "(" _ $piece(%val, "-") _ ")-" _ $piece(%val, "-", 2, 3)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Currency">
+<Super>%String</Super>
+<TimeCreated>64111,38568.371888</TimeCreated>
+
+<Parameter name="DISPLAYLIST">
+<Default>-US Dollars-Euros-Indian Rupees-Venezuelan BolivaresJapanese
+Yen-Mexican Pesos-South African Rands-Brazilian Reals-Canadian
+Dollars-Russian Rubles</Default>
+</Parameter>
+
+<Parameter name="VALUELIST">
+<Default>-USD-EUR-INR-VEB-JPY-MXN-ZAR-BRR-CAD-RUB</Default>
+</Parameter>
+</Class>
+</Export>

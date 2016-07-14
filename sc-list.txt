@@ -1,0 +1,7 @@
+<cspapp>
+Dictionary.pkg
+FCE.pkg
+Simple.pkg
+Tests.pkg
+User.pkg
+Utils.pkg

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Dictionary.house">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64111,76632.419477</TimeCreated>
+
+<Property name="POSTALCODE">
+<Description>
+Почтовый индекс</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSFL">
+<Description>
+Код ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSFL">
+<Description>
+Код территориального участка ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSUL">
+<Description>
+Код ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSUL">
+<Description>
+Код территориального участка ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKATO">
+<Description>
+OKATO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKTMO">
+<Description>
+OKTMO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="UPDATEDATE">
+<Description>
+Дата время внесения записи</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="HOUSENUM">
+<Description>
+Номер дома</Description>
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship ESTSTATUS As Data.ESTSTAT [ Cardinality = children, Inverse = ESTSTATID ];
+
+]]></Content>
+</UDLText>
+
+<Property name="ESTSTATUS">
+<Description>
+Признак владения</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="BUILDNUM">
+<Description>
+Номер корпуса</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="STRUCNUM">
+<Description>
+Номер строения</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="STRSTATUS">
+<Description>
+Признак строения</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="HOUSEID">
+<Description>
+Уникальный идентификатор записи дома</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="HOUSEGUID">
+<Description>
+Глобальный уникальный идентификатор дома</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="AOGUID">
+<Description>
+Guid записи родительского объекта (улицы, города, населенного пункта и т.п.)</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="STARTDATE">
+<Description>
+STARTDATE</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="ENDDATE">
+<Description>
+ENDDATE</Description>
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship STATSTATUS As Data.HSTSTAT [ Cardinality = children, Inverse = HOUSESTID ];
+
+]]></Content>
+</UDLText>
+
+<Property name="STATSTATUS">
+<Description>
+Состояние дома</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="NORMDOC">
+<Description>
+Внешний ключ на нормативный документ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="COUNTER">
+<Description>
+Счетчик записей домов для КЛАДР 4</Description>
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Dictionary.houseD</DataLocation>
+<DefaultData>houseDefaultData</DefaultData>
+<IdLocation>^Dictionary.houseD</IdLocation>
+<IndexLocation>^Dictionary.houseI</IndexLocation>
+<StreamLocation>^Dictionary.houseS</StreamLocation>
+<Data name="houseDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>POSTALCODE</Value>
+</Value>
+<Value name="3">
+<Value>IFNSFL</Value>
+</Value>
+<Value name="4">
+<Value>TERRIFNSFL</Value>
+</Value>
+<Value name="5">
+<Value>IFNSUL</Value>
+</Value>
+<Value name="6">
+<Value>TERRIFNSUL</Value>
+</Value>
+<Value name="7">
+<Value>OKATO</Value>
+</Value>
+<Value name="8">
+<Value>OKTMO</Value>
+</Value>
+<Value name="9">
+<Value>UPDATEDATE</Value>
+</Value>
+<Value name="10">
+<Value>HOUSENUM</Value>
+</Value>
+<Value name="11">
+<Value>ESTSTATUS</Value>
+</Value>
+<Value name="12">
+<Value>BUILDNUM</Value>
+</Value>
+<Value name="13">
+<Value>STRUCNUM</Value>
+</Value>
+<Value name="14">
+<Value>STRSTATUS</Value>
+</Value>
+<Value name="15">
+<Value>HOUSEID</Value>
+</Value>
+<Value name="16">
+<Value>HOUSEGUID</Value>
+</Value>
+<Value name="17">
+<Value>AOGUID</Value>
+</Value>
+<Value name="18">
+<Value>STARTDATE</Value>
+</Value>
+<Value name="19">
+<Value>ENDDATE</Value>
+</Value>
+<Value name="20">
+<Value>STATSTATUS</Value>
+</Value>
+<Value name="21">
+<Value>NORMDOC</Value>
+</Value>
+<Value name="22">
+<Value>COUNTER</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

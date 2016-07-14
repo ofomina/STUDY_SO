@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.CurrencyUtils">
+<TimeCreated>64111,48275.895236</TimeCreated>
+
+<Parameter name="ABBREVIATIONS">
+<Description>
+Currency abbreviations, computed at COMPILE time</Description>
+<Expression>##class(FCE.Currency).#VALUELIST</Expression>
+</Parameter>
+
+<Method name="Currency">
+<ClassMethod>1</ClassMethod>
+<ReturnType>FCE.Currency</ReturnType>
+<Implementation><![CDATA[	return ##class(%PopulateUtils).ValueList(..#ABBREVIATIONS)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

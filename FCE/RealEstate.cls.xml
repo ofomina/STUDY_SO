@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.RealEstate">
+<Super>%Persistent,FCE.Address</Super>
+<TimeCreated>64111,36287.434442</TimeCreated>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^FCE.RealEstateD</DataLocation>
+<DefaultData>RealEstateDefaultData</DefaultData>
+<IdLocation>^FCE.RealEstateD</IdLocation>
+<IndexLocation>^FCE.RealEstateI</IndexLocation>
+<StreamLocation>^FCE.RealEstateS</StreamLocation>
+<ExtentSize>11</ExtentSize>
+<Data name="RealEstateDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Street</Value>
+</Value>
+<Value name="3">
+<Value>City</Value>
+</Value>
+<Value name="4">
+<Value>State</Value>
+</Value>
+<Value name="5">
+<Value>Zip</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.18</AverageFieldSize>
+</Property>
+<Property name="City">
+<Selectivity>11.1111%</Selectivity>
+<AverageFieldSize>6.82</AverageFieldSize>
+</Property>
+<Property name="State">
+<Selectivity>25.0000%</Selectivity>
+<AverageFieldSize>2</AverageFieldSize>
+</Property>
+<Property name="Street">
+<Selectivity>9.0909%</Selectivity>
+<AverageFieldSize>14.91</AverageFieldSize>
+</Property>
+<Property name="Zip">
+<Selectivity>9.0909%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+</Export>

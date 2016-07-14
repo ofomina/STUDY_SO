@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.ATM">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>64111,46493.662866</TimeCreated>
+
+<Property name="SerialNumber">
+<Type>%String</Type>
+</Property>
+
+<Index name="SerialNumberIdx">
+<Properties>SerialNumber</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Address">
+<Type>FCE.RealEstate</Type>
+</Property>
+
+<ForeignKey name="AddressForeignKey">
+<Properties>Address</Properties>
+<ReferencedClass>FCE.RealEstate</ReferencedClass>
+</ForeignKey>
+
+<Property name="CurrencyBalances">
+<Type>%Numeric</Type>
+<Collection>array</Collection>
+<SqlFieldName>Balance</SqlFieldName>
+<Parameter name="MAXVAL" value="10000"/>
+<Parameter name="MINVAL" value="0"/>
+<Parameter name="POPSPEC" value=":5:##class(FCE.CurrencyUtils).Currency()"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^FCE.ATMD</DataLocation>
+<DefaultData>ATMDefaultData</DefaultData>
+<IdLocation>^FCE.ATMD</IdLocation>
+<IndexLocation>^FCE.ATMI</IndexLocation>
+<StreamLocation>^FCE.ATMS</StreamLocation>
+<ExtentSize>11</ExtentSize>
+<Data name="ATMDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>SerialNumber</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+</Data>
+<Data name="CurrencyBalances">
+<Attribute>CurrencyBalances</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"CurrencyBalances"</Subscript>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.18</AverageFieldSize>
+</Property>
+<Property name="Address">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="SerialNumber">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>4.36</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="SerialNumberIdx">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+
+<Index name="NewIndex1">
+<Data>CurrencyBalances(KEYS)</Data>
+<Properties>CurrencyBalances(KEYS)</Properties>
+</Index>
+
+<Property name="Branch">
+<Type>FCE.Branch</Type>
+<Cardinality>parent</Cardinality>
+<Inverse>ATMs</Inverse>
+<Relationship>1</Relationship>
+</Property>
+</Class>
+</Export>

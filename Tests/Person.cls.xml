@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Tests.Person">
+<Super>%UnitTest.TestCase</Super>
+<TimeCreated>64112,40474.060624</TimeCreated>
+
+<Method name="TestImport">
+<Implementation><![CDATA[
+	s st = ##class(Dictionary.Person).import()
+	do $$$AssertStatusOK(st)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

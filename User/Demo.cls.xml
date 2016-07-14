@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="User.Demo">
+<Super>%RegisteredObject</Super>
+<TimeCreated>64110,36774.54389</TimeCreated>
+
+<Method name="Hello">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String,*nameReversed:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+		/*if $data(name) w "Hello "_name
+		else  w "Please set your name"*/
+		
+		s affirmation = ""
+		try {
+			for i=1:1:$length(name)
+			{
+				write !, "Helo world!",!	
+			}	
+			set nameReversed = $reverse(name)
+			set affirmation = name_" is your friend."
+		} catch ex {
+			w !, ex.Name, "error. Affirmation requires name argument"
+		}
+		return affirmation
+]]></Implementation>
+</Method>
+</Class>
+</Export>

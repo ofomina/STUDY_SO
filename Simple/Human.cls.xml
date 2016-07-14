@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Human">
+<Super>%Persistent,%Populate</Super>
+<TimeCreated>64110,43072.720737</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Phone">
+<Type>%String</Type>
+</Property>
+
+<Property name="Home">
+<Type>Simple.Address</Type>
+</Property>
+
+<Property name="Work">
+<Type>Simple.Address</Type>
+</Property>
+
+<Parameter name="SPECIES">
+<Default>Homo sapiens</Default>
+</Parameter>
+
+<Method name="Print">
+<FormalSpec>state:%String="MA"</FormalSpec>
+<Implementation><![CDATA[
+	write !, ..Name, " lives in ", ..Home.State, ", and is "
+	if (..Home.State = state) {
+		write "a ", ..#SPECIES, ". "
+	} else {
+		write "an extra-terrestrial. "
+	}
+	write "Phone is: ", ..Phone, "."
+]]></Implementation>
+</Method>
+
+<Method name="Insert">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>nm:%String="",ph:%String="",sta:%String=""</FormalSpec>
+<Implementation><![CDATA[
+	set allEmpty = ((nm = "") && (ph = "") && (sta = ""))
+	quit:(allEmpty) // if all data is empty just quit
+	TSTART	
+	&sql(insert into simple.human (name, phone, home_state)
+	values (:nm, :ph, :sta))		
+	if (SQLCODE = 0) {
+		&sql(select count(*) into :count from simple.human)
+		write !, count, " records"
+	TCOMMIT
+	}	
+	else {
+		TROLLBACK
+		write !, "SQLCODE: ", SQLCODE, !, %msg
+	}
+]]></Implementation>
+</Method>
+
+<Method name="InsertDyn">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>nm:%String="",ph:%String="",sta:%String=""</FormalSpec>
+<Implementation><![CDATA[
+	s query = "insert into simple.human(name,phone,home_state) values('"_nm_"','"_ph_"','"_sta_"')"
+    s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+    s sc=rset.Prepare(query)
+    s sc=rset.Execute()   
+    d rset.%Display()
+    //для работы с данными, возвращаемыми запросом используем след. блок
+    /*WHILE rset.Next() {
+		 w rset.Data("ID")   
+	}*/
+]]></Implementation>
+</Method>
+
+<Method name="TestStatement">
+<Description>
+Проверка использования %SQL.Statement</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	set statement=##class(%SQL.Statement).%New()
+	s query = "select * from simple.human"
+    //set status=statement.%PrepareClassQuery("Simple.Human","NewQuery1")
+    s status = statement.%Prepare(query)
+    if $$$ISERR(status) { quit status }
+    set resultset=statement.%Execute()
+    //d resultset.%Display() //просто проверка содержимого ответа
+    
+    while (resultset.%Next() '= 0) {	   
+	   	w resultset.Phone 
+	   }
+    Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Simple.HumanD</DataLocation>
+<DefaultData>HumanDefaultData</DefaultData>
+<IdLocation>^Simple.HumanD</IdLocation>
+<IndexLocation>^Simple.HumanI</IndexLocation>
+<StreamLocation>^Simple.HumanS</StreamLocation>
+<ExtentSize>1</ExtentSize>
+<Data name="HumanDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Phone</Value>
+</Value>
+<Value name="4">
+<Value>State</Value>
+</Value>
+<Value name="5">
+<Value>Home</Value>
+</Value>
+<Value name="6">
+<Value>Work</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Home">
+<Selectivity>100.0000%,City:100.0000%,State:100.0000%,Street:100.0000%,Zip:100.0000%</Selectivity>
+<AverageFieldSize>42,City:8,State:9,Street:10,Zip:7</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Phone">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>12</AverageFieldSize>
+</Property>
+<Property name="State">
+<Selectivity>9.0909%</Selectivity>
+<AverageFieldSize>2</AverageFieldSize>
+</Property>
+<Property name="Work">
+<Selectivity>100.0000%,City:100.0000%,State:100.0000%,Street:100.0000%,Zip:100.0000%</Selectivity>
+<AverageFieldSize>42,City:8,State:9,Street:10,Zip:7</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+
+<Method name="%OnNew">
+<Description><![CDATA[
+This callback method is invoked by the <METHOD>%New</METHOD> method to 
+provide notification that a new instance of an object is being created.
+
+<P>If this method returns an error then the object will not be created.
+<p>It is passed the arguments provided in the %New call.
+When customizing this method, override the arguments with whatever variables and types you expect to receive from %New().
+For example, if you're going to call %New, passing 2 arguments, %OnNew's signature could be:
+<p>Method %OnNew(dob as %Date = "", name as %Name = "") as %Status
+If instead of returning a %Status code this returns an oref and this oref is a subclass of the current
+class then this oref will be the one returned to the caller of %New method.]]></Description>
+<FormalSpec>name:%String="",phone:%String="",hstate:%String="",wstate:%String=""</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set ..Name = name
+	set ..Phone = phone
+	set ..Home.State = hstate
+	set ..Work.State = wstate
+	return $$$OK // $$$OK is a MACRO that compiles into a 1 (good status)
+]]></Implementation>
+</Method>
+
+<Query name="NewQuery1">
+<Description>
+Запрос класса, возвращающий все записи из базы</Description>
+<Type>%SQLQuery</Type>
+<SqlQuery>	SELECT * FROM Human</SqlQuery>
+<Parameter name="CONTAINID" value="3"/>
+</Query>
+</Class>
+</Export>

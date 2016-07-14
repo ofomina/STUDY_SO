@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Dictionary.Person">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64111,77306.32522</TimeCreated>
+
+<Property name="IDPAC">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="ID_PAC"/>
+</Property>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="IM"/>
+</Property>
+
+<Property name="Surname">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="FAM"/>
+</Property>
+
+<Property name="Patronymic">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="OT"/>
+</Property>
+
+<Property name="Gender">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="W"/>
+</Property>
+
+<Property name="DOB">
+<Type>%Date</Type>
+<Parameter name="XMLNAME" value="DR"/>
+</Property>
+
+<Property name="DocType">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCTYPE"/>
+</Property>
+
+<Property name="DocSeries">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCSER"/>
+</Property>
+
+<Property name="DocNum">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCNUM"/>
+</Property>
+
+<Property name="SNILS">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="SNILS"/>
+</Property>
+
+<Property name="OKATO">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="OKATOG"/>
+</Property>
+
+<Property name="Doctors">
+<Type>Dictionary.Doctors</Type>
+<Collection>list</Collection>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// тестовый пример простой структуры со строкой и списком значений
+
+]]></Content>
+</UDLText>
+
+<Method name="import">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s st = $$$OK
+	try {
+		Set reader = ##class(%XML.Reader).%New()	 
+		Set filename="c:\temp\person.xml"	
+		Set status = reader.OpenFile(filename)		
+		Do reader.Correlate("Person","Dictionary.Person")	
+		Do reader.Next(.object,.status)	
+		s doclist = ##class(Dictionary.Doctors).import(filename)
+		s object.Doctors = doclist
+		Do object.%Save()
+	} catch ex {
+		s st = ex.AsStatus()	
+	}
+	q st
+]]></Implementation>
+</Method>
+
+<Method name="importFull">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s st = $$$OK
+	try {
+		Set reader = ##class(%XML.Reader).%New()	 
+		Set filename="c:\temp\LM651101T65000_150301.xml"	
+		Set status = reader.OpenFile(filename)		
+		Do reader.Correlate("PERS","Dictionary.Person")			
+		While (reader.Next(.object,.status)) 
+    	{	
+    		d object.%Save()    			
+	    }		
+	} catch ex {
+		s st = ex.AsStatus()	
+	}
+	q st
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Dictionary.PersonD</DataLocation>
+<DefaultData>PersonDefaultData</DefaultData>
+<IdLocation>^Dictionary.PersonD</IdLocation>
+<IndexLocation>^Dictionary.PersonI</IndexLocation>
+<StreamLocation>^Dictionary.PersonS</StreamLocation>
+<Data name="PersonDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Doctors</Value>
+</Value>
+<Value name="4">
+<Value>IDPAC</Value>
+</Value>
+<Value name="5">
+<Value>Surname</Value>
+</Value>
+<Value name="6">
+<Value>Patronymic</Value>
+</Value>
+<Value name="7">
+<Value>Gender</Value>
+</Value>
+<Value name="8">
+<Value>DOB</Value>
+</Value>
+<Value name="9">
+<Value>IdentDoc</Value>
+</Value>
+<Value name="10">
+<Value>SNILS</Value>
+</Value>
+<Value name="11">
+<Value>OKATO</Value>
+</Value>
+<Value name="12">
+<Value>DocType</Value>
+</Value>
+<Value name="13">
+<Value>DocSeries</Value>
+</Value>
+<Value name="14">
+<Value>DocNum</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

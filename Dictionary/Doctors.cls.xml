@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Dictionary.Doctors">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64111,77610.604723</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+</Property>
+
+<Method name="import">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>filename:%String</FormalSpec>
+<ReturnType>%ListOfDataTypes</ReturnType>
+<Implementation><![CDATA[
+	Set reader = ##class(%XML.Reader).%New()
+ 
+	Set status = reader.OpenFile(filename)		
+	Do reader.Correlate("Doctor","Dictionary.Doctors")	
+	s doclist = ##class(%ListOfDataTypes).%New()
+	While (reader.Next(.object,.status)) 
+    	{	
+    		Do object.%Save()
+    		d doclist.Insert(object)	
+	    }	
+	
+	q doclist
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Dictionary.DoctorsD</DataLocation>
+<DefaultData>DoctorsDefaultData</DefaultData>
+<IdLocation>^Dictionary.DoctorsD</IdLocation>
+<IndexLocation>^Dictionary.DoctorsI</IndexLocation>
+<StreamLocation>^Dictionary.DoctorsS</StreamLocation>
+<Data name="DoctorsDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

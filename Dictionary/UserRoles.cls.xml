@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Dictionary.UserRoles">
+<Super>%Persistent</Super>
+<TimeCreated>64111,54716.128777</TimeCreated>
+
+<Property name="UserId">
+<Type>Dictionary.Users</Type>
+<Cardinality>one</Cardinality>
+<Inverse>UserRole</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="RoleId">
+<Type>Dictionary.Roles</Type>
+<Cardinality>one</Cardinality>
+<Inverse>UserRole</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Dictionary.UserRolesD</DataLocation>
+<DefaultData>UserRolesDefaultData</DefaultData>
+<IdLocation>^Dictionary.UserRolesD</IdLocation>
+<IndexLocation>^Dictionary.UserRolesI</IndexLocation>
+<StreamLocation>^Dictionary.UserRolesS</StreamLocation>
+<Data name="UserRolesDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>RoleId</Value>
+</Value>
+<Value name="3">
+<Value>UserId</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.Settings">
+<TimeCreated>64112,33803.997728</TimeCreated>
+
+<Method name="GetFile">
+<Description>
+Метод указывающий расположение фаила с настройками</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%File</ReturnType>
+<Implementation><![CDATA[
+		
+		s dir = $$defdir^%GLO("STUDY")_"config.properties"
+		s file = ##class(%File).%New(dir)
+		q file
+]]></Implementation>
+</Method>
+
+<Method name="GetProperty1">
+<Description>
+Метод получения SMTP пользователя</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+ 		
+	s tFile = ..GetFile()
+ 	s tSC = tFile.Open("RS")
+ 	i tSC'=1 {
+ 		d $System.Status.DisplayError(tSC)  
+ 	}
+	s res=""
+ 	While ('tFile.AtEnd) {
+	 	s fileLine = tFile.ReadLine()
+   		i fileLine["Property1" {
+			s res=$piece(fileLine,"=",2) 
+ 		}
+ 	}
+ 	if res = "" w "Свойство Property1 не найдено.",!
+ 	q res
+]]></Implementation>
+</Method>
+</Class>
+</Export>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Address">
+<Description><![CDATA[
+Address properties for <class>FCE.RealEstate</class> and <class>FCE.MailingAddress</class>]]></Description>
+<Abstract>1</Abstract>
+<Super>%Populate,%XML.Adaptor</Super>
+<TimeCreated>64111,36088.147071</TimeCreated>
+
+<Property name="Street">
+<Type>%String</Type>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="2"/>
+<Parameter name="PATTERN" value="2u"/>
+<Parameter name="VALUELIST" value="-NY-NJ-MA-TX"/>
+</Property>
+
+<Property name="Zip">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="10"/>
+<Parameter name="PATTERN" value="5n.1(1&quot;-&quot;4n)"/>
+</Property>
+</Class>
+</Export>
