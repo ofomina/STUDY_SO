@@ -1,4 +1,5 @@
 <cspapp>
+Data.Receptions.cls
 Dictionary.pkg
 FCE.pkg
 Simple.pkg
