@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="CRUD.Person">
+<Super>%Base</Super>
 <TimeCreated>64113,55753.742781</TimeCreated>
 
 <Method name="Get">
@@ -13,10 +14,9 @@
 			s rset = ##class(Data.Person).GetOne()				
 		} else {
 			s rset = ##class(Data.Person).GetAll()
-			While (rset.Next()) {
-     			
-     		}				
-		}		
+						
+		}	
+		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.person")
 		q $$$OK
 ]]></Implementation>
 </Method>

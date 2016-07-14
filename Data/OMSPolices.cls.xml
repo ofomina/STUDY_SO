@@ -29,6 +29,13 @@ Vne6nii klyu4</Description>
 <ReferencedClass>Data.SMO</ReferencedClass>
 </ForeignKey>
 
+<Property name="Person">
+<Type>Data.Person</Type>
+<Cardinality>one</Cardinality>
+<Inverse>OMSPolice</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
 <Method name="GetAll">
 <Description>
 Polu4enie dannyh iz tablicy OMSPolices</Description>
@@ -61,6 +68,9 @@ Polu4enie dannyh iz tablicy OMSPolices</Description>
 </Value>
 <Value name="4">
 <Value>SMO</Value>
+</Value>
+<Value name="5">
+<Value>Person</Value>
 </Value>
 </Data>
 </Storage>

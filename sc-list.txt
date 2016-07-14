@@ -2,6 +2,7 @@
 Data.pkg
 Dictionary.pkg
 FCE.pkg
+REST.Router.cls
 Simple.pkg
 Tests.pkg
 User.pkg
