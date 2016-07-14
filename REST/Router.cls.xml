@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="REST.Router">
+<Super>%CSP.REST</Super>
+<TimeCreated>64113,54332.452494</TimeCreated>
+
+<Parameter name="UseSession">
+<Type>Integer</Type>
+<Default>1</Default>
+</Parameter>
+
+<XData name="UrlMap">
+<Description>
+Карта путей REST web API</Description>
+<Data><![CDATA[
+<Routes>	
+	<Route Url="/test" Method="GET" Call="Test"/>
+	<Route Url="/getPerson/:id" Method="GET" Call="CRUD.Person:Get"/>
+	<Route Url="/getPerson" Method="GET" Call="CRUD.Person:Get"/>
+</Routes>
+]]></Data>
+</XData>
+
+<Method name="Test">
+<Description>
+Тестовый метод, проверящий работу REST сервиса. 
+Доступен по адресу: http://localhost:57772/csp/healthshare/study/rest/test</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	w "{""Person"":[""Name"":""Иван"",""Surname"":""Иванов""],""MO"":[]}"
+	return $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
