@@ -9,6 +9,7 @@
 <FormalSpec>id</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
+ 
 	
 		if $data(id) {
 			s rset = ##class(Data.MKB).GetOne()				
