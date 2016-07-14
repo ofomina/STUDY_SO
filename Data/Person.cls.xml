@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="Dictionary.Person">
+<Class name="Data.Person">
+<Description>
+Класс данных о пациенте</Description>
 <Super>%Persistent,%XML.Adaptor</Super>
 <TimeCreated>64111,77306.32522</TimeCreated>
-
-<UDLText name="T">
-<Content><![CDATA[
-// 
-
-]]></Content>
-</UDLText>
 
 <Property name="IDPAC">
 <Type>%String</Type>
@@ -71,49 +66,23 @@
 <Collection>list</Collection>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// тестовый пример простой структуры со строкой и списком значений
-
-]]></Content>
-</UDLText>
-
 <Method name="import">
+<Description>
+Класс загрузки данных из XML</Description>
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	s st = $$$OK
-	try {
-		Set reader = ##class(%XML.Reader).%New()	 
-		Set filename="c:\temp\person.xml"	
-		Set status = reader.OpenFile(filename)		
-		Do reader.Correlate("Person","Dictionary.Person")	
-		Do reader.Next(.object,.status)	
-		s doclist = ##class(Dictionary.Doctors).import(filename)
-		s object.Doctors = doclist
-		Do object.%Save()
-	} catch ex {
-		s st = ex.AsStatus()	
-	}
-	q st
-]]></Implementation>
-</Method>
-
-<Method name="importFull">
-<ClassMethod>1</ClassMethod>
-<ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[
-	s st = $$$OK
-	try {
-		Set reader = ##class(%XML.Reader).%New()	 
-		Set filename="c:\temp\LM651101T65000_150301.xml"	
-		Set status = reader.OpenFile(filename)		
-		Do reader.Correlate("PERS","Dictionary.Person")			
-		While (reader.Next(.object,.status)) 
+	s st = $$$OK //устанавливаем начальный статус
+	try {	//помещаем код в блок отлавливания ошибок
+		Set reader = ##class(%XML.Reader).%New()	//создаем новый объект для чтения xml	 
+		Set filename="c:\temp\LM651101T65000_150301.xml"	//пока просто жестко указываем путь до файла	
+		Set status = reader.OpenFile(filename)	//открываем файл. Результат - статус открытия		
+		Do reader.Correlate("PERS","Dictionary.Person")		//проводим аналогию между нашим классом и описанием 		
+		While (reader.Next(.object,.status)) 	//в цикле, перебираем каждый элемент PERS и получаем проекцию нашего класса по ссылке
     	{	
-    		d object.%Save()    			
+    		d object.%Save()  //сохраняем объект  			
 	    }		
-	} catch ex {
+	} catch ex { //при наличии ошибки меняем начальный статус 
 		s st = ex.AsStatus()	
 	}
 	q st
@@ -122,53 +91,50 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<DataLocation>^Dictionary.PersonD</DataLocation>
+<DataLocation>^Data.PersonD</DataLocation>
 <DefaultData>PersonDefaultData</DefaultData>
-<IdLocation>^Dictionary.PersonD</IdLocation>
-<IndexLocation>^Dictionary.PersonI</IndexLocation>
-<StreamLocation>^Dictionary.PersonS</StreamLocation>
+<IdLocation>^Data.PersonD</IdLocation>
+<IndexLocation>^Data.PersonI</IndexLocation>
+<StreamLocation>^Data.PersonS</StreamLocation>
 <Data name="PersonDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
-<Value>Name</Value>
-</Value>
-<Value name="3">
-<Value>Doctors</Value>
-</Value>
-<Value name="4">
 <Value>IDPAC</Value>
 </Value>
-<Value name="5">
+<Value name="3">
+<Value>Name</Value>
+</Value>
+<Value name="4">
 <Value>Surname</Value>
 </Value>
-<Value name="6">
+<Value name="5">
 <Value>Patronymic</Value>
 </Value>
-<Value name="7">
+<Value name="6">
 <Value>Gender</Value>
 </Value>
-<Value name="8">
+<Value name="7">
 <Value>DOB</Value>
 </Value>
-<Value name="9">
-<Value>IdentDoc</Value>
-</Value>
-<Value name="10">
-<Value>SNILS</Value>
-</Value>
-<Value name="11">
-<Value>OKATO</Value>
-</Value>
-<Value name="12">
+<Value name="8">
 <Value>DocType</Value>
 </Value>
-<Value name="13">
+<Value name="9">
 <Value>DocSeries</Value>
 </Value>
-<Value name="14">
+<Value name="10">
 <Value>DocNum</Value>
+</Value>
+<Value name="11">
+<Value>SNILS</Value>
+</Value>
+<Value name="12">
+<Value>OKATO</Value>
+</Value>
+<Value name="13">
+<Value>Doctors</Value>
 </Value>
 </Data>
 </Storage>

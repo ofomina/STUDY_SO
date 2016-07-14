@@ -1,4 +1,8 @@
 <cspapp>
+Data.Doctors.cls
+Data.Person.cls
+Data.Receptions.cls
+Data.SMO.cls
 Dictionary.pkg
 FCE.pkg
 Simple.pkg

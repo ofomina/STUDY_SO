@@ -4,6 +4,13 @@
 <Super>%Persistent</Super>
 <TimeCreated>64111,52741.487424</TimeCreated>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Hello test
+
+]]></Content>
+</UDLText>
+
 <Property name="Parent">
 <Description>
 олшщш</Description>
