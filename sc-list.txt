@@ -1,5 +1,6 @@
 <cspapp>
 Data.Doctors.cls
+Data.OMSPolices.cls
 Data.Person.cls
 Data.Receptions.cls
 Data.SMO.cls

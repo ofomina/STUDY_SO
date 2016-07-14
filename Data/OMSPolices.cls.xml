@@ -37,8 +37,6 @@ Vne6nii klyu4</Description>
 <IndexLocation>^Data.OMSPolicesI</IndexLocation>
 <StreamLocation>^Data.OMSPolicesS</StreamLocation>
 <Data name="OMSPolicesDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
