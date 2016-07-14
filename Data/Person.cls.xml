@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.Person">
+<Description>
+Класс данных о пациенте</Description>
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeCreated>64111,77306.32522</TimeCreated>
+
+<Property name="IDPAC">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="ID_PAC"/>
+</Property>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="IM"/>
+</Property>
+
+<Property name="Surname">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="FAM"/>
+</Property>
+
+<Property name="Patronymic">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="OT"/>
+</Property>
+
+<Property name="Gender">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="W"/>
+</Property>
+
+<Property name="DOB">
+<Type>%Date</Type>
+<Parameter name="XMLNAME" value="DR"/>
+</Property>
+
+<Property name="DocType">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCTYPE"/>
+</Property>
+
+<Property name="DocSeries">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCSER"/>
+</Property>
+
+<Property name="DocNum">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="DOCNUM"/>
+</Property>
+
+<Property name="SNILS">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="SNILS"/>
+</Property>
+
+<Property name="OKATO">
+<Type>%String</Type>
+<Parameter name="XMLNAME" value="OKATOG"/>
+</Property>
+
+<Property name="Doctors">
+<Type>Dictionary.Doctors</Type>
+<Collection>list</Collection>
+</Property>
+
+<Method name="import">
+<Description>
+Класс загрузки данных из XML</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s st = $$$OK //устанавливаем начальный статус
+	try {	//помещаем код в блок отлавливания ошибок
+		Set reader = ##class(%XML.Reader).%New()	//создаем новый объект для чтения xml	 
+		Set filename="c:\temp\LM651101T65000_150301.xml"	//пока просто жестко указываем путь до файла	
+		Set status = reader.OpenFile(filename)	//открываем файл. Результат - статус открытия		
+		Do reader.Correlate("PERS","Dictionary.Person")		//проводим аналогию между нашим классом и описанием 		
+		While (reader.Next(.object,.status)) 	//в цикле, перебираем каждый элемент PERS и получаем проекцию нашего класса по ссылке
+    	{	
+    		d object.%Save()  //сохраняем объект  			
+	    }		
+	} catch ex { //при наличии ошибки меняем начальный статус 
+		s st = ex.AsStatus()	
+	}
+	q st
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.PersonD</DataLocation>
+<DefaultData>PersonDefaultData</DefaultData>
+<IdLocation>^Data.PersonD</IdLocation>
+<IndexLocation>^Data.PersonI</IndexLocation>
+<StreamLocation>^Data.PersonS</StreamLocation>
+<Data name="PersonDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>IDPAC</Value>
+</Value>
+<Value name="3">
+<Value>Name</Value>
+</Value>
+<Value name="4">
+<Value>Surname</Value>
+</Value>
+<Value name="5">
+<Value>Patronymic</Value>
+</Value>
+<Value name="6">
+<Value>Gender</Value>
+</Value>
+<Value name="7">
+<Value>DOB</Value>
+</Value>
+<Value name="8">
+<Value>DocType</Value>
+</Value>
+<Value name="9">
+<Value>DocSeries</Value>
+</Value>
+<Value name="10">
+<Value>DocNum</Value>
+</Value>
+<Value name="11">
+<Value>SNILS</Value>
+</Value>
+<Value name="12">
+<Value>OKATO</Value>
+</Value>
+<Value name="13">
+<Value>Doctors</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
