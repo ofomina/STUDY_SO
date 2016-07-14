@@ -22,6 +22,13 @@
 <Type>%String</Type>
 </Property>
 
+<UDLText name="T">
+<Content><![CDATA[
+// 
+
+]]></Content>
+</UDLText>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Dictionary.AddressesD</DataLocation>
