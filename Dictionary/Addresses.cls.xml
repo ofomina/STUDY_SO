@@ -12,6 +12,8 @@
 </UDLText>
 
 <Property name="Parent">
+<Description>
+олшщш</Description>
 <Type>Dictionary.Addresses</Type>
 <Cardinality>one</Cardinality>
 <Inverse>Children</Inverse>
