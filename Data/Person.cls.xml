@@ -66,6 +66,20 @@
 <Collection>list</Collection>
 </Property>
 
+<Property name="OMSPolice">
+<Type>Data.OMSPolices</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Person</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Reception">
+<Type>Data.Receptions</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Person</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
 <Method name="import">
 <Description>
 Класс загрузки данных из XML</Description>

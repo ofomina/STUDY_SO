@@ -13,6 +13,13 @@
 <Parameter name="PATTERN" value="3n1&quot;-&quot;3n1&quot;-&quot;3n1&quot; &quot;2n"/>
 </Property>
 
+<Property name="Reception">
+<Type>Data.Receptions</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Doctor</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.DoctorsD</DataLocation>
@@ -21,8 +28,6 @@
 <IndexLocation>^Data.DoctorsI</IndexLocation>
 <StreamLocation>^Data.DoctorsS</StreamLocation>
 <Data name="DoctorsDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

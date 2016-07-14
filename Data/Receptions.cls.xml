@@ -24,8 +24,18 @@
 ]]></Content>
 </UDLText>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Property Diagnosis As %String;
+
+]]></Content>
+</UDLText>
+
 <Property name="Diagnosis">
-<Type>%String</Type>
+<Type>Data.MKB</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Reception</Inverse>
+<Relationship>1</Relationship>
 </Property>
 
 <UDLText name="T">
@@ -35,8 +45,25 @@
 ]]></Content>
 </UDLText>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Property Doctor As %String;
+
+]]></Content>
+</UDLText>
+
 <Property name="Doctor">
-<Type>%String</Type>
+<Type>Data.Doctors</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Reception</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Person">
+<Type>Data.Person</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Reception</Inverse>
+<Relationship>1</Relationship>
 </Property>
 
 <Storage name="Default">
@@ -61,6 +88,9 @@
 </Value>
 <Value name="5">
 <Value>Doctor</Value>
+</Value>
+<Value name="6">
+<Value>PersonId</Value>
 </Value>
 </Data>
 </Storage>
