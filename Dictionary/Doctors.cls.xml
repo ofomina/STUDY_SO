@@ -4,6 +4,13 @@
 <Super>%Persistent,%XML.Adaptor</Super>
 <TimeCreated>64111,77610.604723</TimeCreated>
 
+<UDLText name="T">
+<Content><![CDATA[
+// 
+
+]]></Content>
+</UDLText>
+
 <Property name="Name">
 <Type>%String</Type>
 </Property>
