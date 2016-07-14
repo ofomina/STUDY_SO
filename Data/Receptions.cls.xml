@@ -66,6 +66,19 @@
 <Relationship>1</Relationship>
 </Property>
 
+<Method name="GetAll">
+<Description>
+Процедура получения всех записей о посещениях путем SQL запроса</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.Receptions"	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.ReceptionsD</DataLocation>
@@ -91,6 +104,9 @@
 </Value>
 <Value name="6">
 <Value>PersonId</Value>
+</Value>
+<Value name="7">
+<Value>Person</Value>
 </Value>
 </Data>
 </Storage>
