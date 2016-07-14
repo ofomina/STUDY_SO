@@ -29,6 +29,19 @@ Vne6nii klyu4</Description>
 <ReferencedClass>Data.SMO</ReferencedClass>
 </ForeignKey>
 
+<Method name="GetAll">
+<Description>
+Polu4enie dannyh iz tablicy OMSPolices</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.OMSPolices"	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.OMSPolicesD</DataLocation>
