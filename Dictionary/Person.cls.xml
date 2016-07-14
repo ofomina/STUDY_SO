@@ -4,6 +4,13 @@
 <Super>%Persistent,%XML.Adaptor</Super>
 <TimeCreated>64111,77306.32522</TimeCreated>
 
+<UDLText name="T">
+<Content><![CDATA[
+// 
+
+]]></Content>
+</UDLText>
+
 <Property name="IDPAC">
 <Type>%String</Type>
 <Parameter name="XMLNAME" value="ID_PAC"/>
