@@ -1,5 +1,6 @@
 <cspapp>
-Data.Doctors.cls
+Data.Receptions.cls
+Data.Receptions.cls
 Data.Person.cls
 Dictionary.pkg
 FCE.pkg
@@ -7,3 +8,4 @@ Simple.pkg
 Tests.pkg
 User.pkg
 Utils.pkg
+
