@@ -20,6 +20,19 @@
 <Relationship>1</Relationship>
 </Property>
 
+<Method name="GetAll">
+<Description>
+Процедура получения всех записей о докторах путем SQL запроса</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.Doctors"	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.DoctorsD</DataLocation>
@@ -36,6 +49,9 @@
 </Value>
 <Value name="3">
 <Value>SNILS</Value>
+</Value>
+<Value name="4">
+<Value>Reception</Value>
 </Value>
 </Data>
 </Storage>
