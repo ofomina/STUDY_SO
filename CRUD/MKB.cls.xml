@@ -17,9 +17,9 @@
 				}	
 				While (rset.Next()) {
 				s arr = ##class(%ArrayOfDataTypes).%New()
-				do arr.SetAr(rset.Data("ID"), "ID")
-				do arr.SetAr(rset.Data("Code"), "Code")
-				do arr.SetAr(rset.Data("Name"), "Name")	
+				do arr.SetAt(rset.Data("ID"), "ID")
+				do arr.SetAt(rset.Data("Code"), "Code")
+				do arr.SetAt(rset.Data("Name"), "Name")	
 				d list.Insert(arr)	
 		}	
 		d list.$toJSON()
