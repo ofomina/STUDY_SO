@@ -9,15 +9,26 @@
 <FormalSpec>id</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	
-		if $data(id) {
-			s rset = ##class(Data.OMSPolices).GetOne()				
-		} else {
-			s rset = ##class(Data.OMSPolices).GetAll()
-						
-		}	
-		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.omspolices")
-		q $$$OK
+	s arr = ##class(%ArrayOfDataTypes).%New()
+	if $data(id)
+	{
+		s rset = ##class(Data.OMSPolices).GetOne(id)
+	}
+	else
+	{
+		s rset = ##class(Data.OMSPolices).GetAll()
+	}
+		
+	While (rset.Next())
+	{
+		d arr.SetAt(rset.Data("ID"), "ID")
+		d arr.SetAt(rset.Data("Series"), "Series")
+		d arr.SetAt(rset.Data("Number"), "Number")
+		d arr.SetAt(rset.Data("SMO"), "SMO")
+	}
+	d arr.$toJSON()
+	//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.omspolices")
+	q $$$OK
 ]]></Implementation>
 </Method>
 </Class>
