@@ -11,14 +11,19 @@
 <FormalSpec>id</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	
+		s arr = ##class(%ArrayOfDataTypes).%New()
 		if $data(id) {
-			s rset = ##class(Data.Receptions).GetOne()				
+			s rset = ##class(Data.Receptions).GetOne(id)				
 		} else {
 			s rset = ##class(Data.Receptions).GetAll()
-						
+				}
+			while rset.Next() {
+			d arr.SetAt(rset.Data("ID"), "ID")
+			d arr.SetAt(rset.Data("Date"), "Date")
+			d arr.SetAt(rset.Data("Diagnosis"), "Diagnosis")
+			d arr.SetAt(rset.Data("Doctor"), "Doctor")			
 		}	
-		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.receptions")
+		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.receptions")
 		q $$$OK
 ]]></Implementation>
 </Method>
