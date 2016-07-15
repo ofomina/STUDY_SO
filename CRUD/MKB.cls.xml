@@ -10,14 +10,19 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
  
-	
+	s arr = ##class(%ArrayOfDataTypes).%New()
 		if $data(id) {
-			s rset = ##class(Data.MKB).GetOne()				
+			s rset = ##class(Data.MKB).GetOne(id)				
 		} else {
 			s rset = ##class(Data.MKB).GetAll()
-						
+				}	
+				While (rset.Next()) {
+				do arr.SetAr(rset.Data("ID"), "ID")
+				do arr.SetAr(rset.Data("Code"), "Code")
+				do arr.SetAr(rset.Data("Name"), "Name")		
 		}	
-		d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.mkb")
+		d arr.$toJSON()
+		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.mkb")
 		q $$$OK
 ]]></Implementation>
 </Method>

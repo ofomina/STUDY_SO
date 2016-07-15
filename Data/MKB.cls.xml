@@ -54,6 +54,20 @@
 ]]></Implementation>
 </Method>
 
+<Method name="GetOne">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%ResultSet</ReturnType>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.MKB where id = "_id	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	if $$$ISERR(sc) w "Error"
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.MKBD</DataLocation>
