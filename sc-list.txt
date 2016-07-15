@@ -1,9 +1,11 @@
+/CRUD
+/REST
 <cspapp>
 CRUD.pkg
 Data.pkg
 Dictionary.pkg
 FCE.pkg
-REST.Router.cls
+REST.pkg
 Simple.pkg
 Tests.pkg
 User.pkg
