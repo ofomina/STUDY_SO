@@ -9,13 +9,14 @@
 <FormalSpec>id</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-		s arr = ##class(%ArrayOfDataTypes).%New()
+		s list = ##class(%ListOfDataTypes).%New()		
 		if $data(id) {
 			s rset = ##class(Data.Person).GetOne(id)				
 		} else {
 			s rset = ##class(Data.Person).GetAll()				
 		}
 		WHILE rset.Next() {
+				s arr = ##class(%ArrayOfDataTypes).%New()
 				d arr.SetAt(rset.Data("ID"), "ID")
 				d arr.SetAt(rset.Data("Name"), "Name")
 				d arr.SetAt(rset.Data("Surname"), "Surname")
@@ -25,9 +26,10 @@
 				d arr.SetAt(rset.Data("DocType"), "DocType")
 				d arr.SetAt(rset.Data("DocSeries"), "DocSer")
 				d arr.SetAt(rset.Data("DocNum"), "DocNum")
-				d arr.SetAt(rset.Data("SNILS"),"SNILS")		
+				d arr.SetAt(rset.Data("SNILS"),"SNILS")	
+				d list.Insert(arr)	
 			}
-		d arr.$toJSON()
+		d list.$toJSON()
 		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.person")
 		q $$$OK
 ]]></Implementation>
