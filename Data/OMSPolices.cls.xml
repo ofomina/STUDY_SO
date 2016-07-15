@@ -49,6 +49,19 @@ Polu4enie dannyh iz tablicy OMSPolices</Description>
 ]]></Implementation>
 </Method>
 
+<Method name="GetOne">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%ResultSet</ReturnType>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.OMSPolices where id = "_id	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.OMSPolicesD</DataLocation>
