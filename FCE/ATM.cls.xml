@@ -31,6 +31,13 @@
 <Parameter name="POPSPEC" value=":5:##class(FCE.CurrencyUtils).Currency()"/>
 </Property>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship Branch2 As FCE.Branch2 [ Cardinality = parent, Inverse = ATMs ];
+
+]]></Content>
+</UDLText>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^FCE.ATMD</DataLocation>
@@ -38,7 +45,7 @@
 <IdLocation>^FCE.ATMD</IdLocation>
 <IndexLocation>^FCE.ATMI</IndexLocation>
 <StreamLocation>^FCE.ATMS</StreamLocation>
-<ExtentSize>11</ExtentSize>
+<ExtentSize>26</ExtentSize>
 <Data name="ATMDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -61,17 +68,24 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.18</AverageFieldSize>
+<AverageFieldSize>1.65</AverageFieldSize>
 </Property>
 <Property name="Address">
-<Selectivity>16.6667%</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>5.5556%</Selectivity>
+<AverageFieldSize>1.46</AverageFieldSize>
+</Property>
+<Property name="SerialNamber">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>4.77</AverageFieldSize>
 </Property>
 <Property name="SerialNumber">
 <Selectivity>1</Selectivity>
 <AverageFieldSize>4.36</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="SerialNamberIdx">
 <BlockCount>-4</BlockCount>
 </SQLMap>
 <SQLMap name="SerialNumberIdx">

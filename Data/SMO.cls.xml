@@ -28,6 +28,21 @@
 ]]></Implementation>
 </Method>
 
+<Method name="GetOne">
+<Description>
+Процедура получения записи о пациенте по ID  путем SQL запроса</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%ResultSet</ReturnType>
+<Implementation><![CDATA[
+  s query="SELECT * FROM Data.SMO WHERE id = "_id 
+  s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+  s sc=rset.Prepare(query)
+  s sc=rset.Execute()  
+  q rset
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Description>
 Класс Страховые мед организации, свойства имя страховой организации, код страховой организации</Description>
