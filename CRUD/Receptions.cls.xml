@@ -23,6 +23,7 @@
 			d arr.SetAt(rset.Data("Date"), "Date")
 			d arr.SetAt(rset.Data("Diagnosis"), "Diagnosis")
 			d arr.SetAt(rset.Data("Doctor"), "Doctor")
+			d arr.SetAt(rset.Data("Person"), "Person")
 			d list.Insert(arr)			
 		}	
 		w list.$toJSON()

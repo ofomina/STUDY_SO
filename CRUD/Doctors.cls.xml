@@ -18,9 +18,9 @@
 				}	
 				While (rset.Next()) {
 				s arr = ##class(%ArrayOfDataTypes).%New()
-				do arr.SetAr(rset.Data("ID"), "ID")
-				do arr.SetAr(rset.Data("FIO"), "FIO")
-				do arr.SetAr(rset.Data("SNILS"), "SNILS")
+				do arr.SetAt(rset.Data("ID"), "ID")
+				do arr.SetAt(rset.Data("FIO"), "FIO")
+				do arr.SetAt(rset.Data("SNILS"), "SNILS")
 				do list.Insert(arr)
 						
 		}	
