@@ -1,4 +1,5 @@
 /CRUD
+/REST
 <cspapp>
 CRUD.pkg
 Data.pkg
