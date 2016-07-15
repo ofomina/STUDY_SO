@@ -86,12 +86,13 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
+	
 	s st = $$$OK //устанавливаем начальный статус
 	try {	//помещаем код в блок отлавливания ошибок
 		Set reader = ##class(%XML.Reader).%New()	//создаем новый объект для чтения xml	 
 		Set filename="c:\temp\LM651101T65000_150301.xml"	//пока просто жестко указываем путь до файла	
 		Set status = reader.OpenFile(filename)	//открываем файл. Результат - статус открытия		
-		Do reader.Correlate("PERS","Dictionary.Person")		//проводим аналогию между нашим классом и описанием 		
+		Do reader.Correlate("PERS","Data.Person")		//проводим аналогию между нашим классом и описанием 		
 		While (reader.Next(.object,.status)) 	//в цикле, перебираем каждый элемент PERS и получаем проекцию нашего класса по ссылке
     	{	
     		d object.%Save()  //сохраняем объект  			
@@ -107,11 +108,29 @@
 <Description>
 Процедура получения всех записей о пациентах путем SQL запроса</Description>
 <ClassMethod>1</ClassMethod>
+<ReturnType>%ResultSet</ReturnType>
 <Implementation><![CDATA[
 	s query="SELECT * FROM Data.Person"	
 	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
 	s sc=rset.Prepare(query)
 	s sc=rset.Execute()		
+	if $$$ISERR(sc) w "Error"	
+	q rset
+]]></Implementation>
+</Method>
+
+<Method name="GetOne">
+<Description>
+Процедура получения записи о пациенте по ID путем SQL запроса</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%ResultSet</ReturnType>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data.Person WHERE id = "_id	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	if $$$ISERR(sc) w "Error"	
 	q rset
 ]]></Implementation>
 </Method>

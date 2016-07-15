@@ -17,6 +17,21 @@
 	<Route Url="/test" Method="GET" Call="Test"/>
 	<Route Url="/getPerson/:id" Method="GET" Call="CRUD.Person:Get"/>
 	<Route Url="/getPerson" Method="GET" Call="CRUD.Person:Get"/>
+	
+	<Route Url="/getMKB/:id" Method="GET" Call="CRUD.MKB:Get"/>
+	<Route Url="/getMKB" Method="GET" Call="CRUD.MKB:Get"/>
+	
+	<Route Url="/getReception/:id" Method="GET" Call="CRUD.Reception:Get"/>
+	<Route Url="/getReception" Method="GET" Call="CRUD.Reception:Get"/>
+	
+	<Route Url="/getOMSPolice/:id" Method="GET" Call="CRUD.OMSPolices:Get"/>
+	<Route Url="/getOMSPolice" Method="GET" Call="CRUD.OMSPolices:Get"/>
+	
+	<Route Url="/getSMO/:id" Method="GET" Call="CRUD.SMO:Get"/>
+	<Route Url="/getSMO" Method="GET" Call="CRUD.SMO:Get"/>
+	
+	<Route Url="/getDoctor/:id" Method="GET" Call="CRUD.Doctor:Get"/>
+	<Route Url="/getDoctor" Method="GET" Call="CRUD.Doctor:Get"/>
 </Routes>
 ]]></Data>
 </XData>
