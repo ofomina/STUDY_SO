@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="CRUD.Doctors">
+<Super>%Base</Super>
+<TimeCreated>64114,37339.998736</TimeCreated>
+
+<Method name="Get">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ 
+	s arr = ##class(%ArrayOfDataTypes).%New()
+		if $data(id) {
+			s rset = ##class(Data.Doctors).GetOne(id)				
+		} else {
+			s rset = ##class(Data.Doctors).GetAll()
+				}	
+				While (rset.Next()) {
+				do arr.SetAr(rset.Data("ID"), "ID")
+				do arr.SetAr(rset.Data("FIO"), "FIO")
+				do arr.SetAr(rset.Data("SNILS"), "SNILS")		
+		}	
+		d arr.$toJSON()
+		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.mkb")
+		q $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
