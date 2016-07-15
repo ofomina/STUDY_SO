@@ -38,7 +38,7 @@
 <FormalSpec>id</FormalSpec>
 <ReturnType>%ResultSet</ReturnType>
 <Implementation><![CDATA[
-	s query="SELECT * FROM Data.Doctors where id = "_id	
+ 	s query="SELECT * FROM Data.Doctors where id = "_id	
 	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
 	s sc=rset.Prepare(query)
 	s sc=rset.Execute()		

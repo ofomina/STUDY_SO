@@ -10,18 +10,21 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
  
-	s arr = ##class(%ArrayOfDataTypes).%New()
+	set list = ##class(%ListOfDataTypes).%New()
 		if $data(id) {
 			s rset = ##class(Data.Doctors).GetOne(id)				
 		} else {
 			s rset = ##class(Data.Doctors).GetAll()
 				}	
 				While (rset.Next()) {
+				s arr = ##class(%ArrayOfDataTypes).%New()
 				do arr.SetAr(rset.Data("ID"), "ID")
 				do arr.SetAr(rset.Data("FIO"), "FIO")
-				do arr.SetAr(rset.Data("SNILS"), "SNILS")		
+				do arr.SetAr(rset.Data("SNILS"), "SNILS")
+				do list.Insert(arr)
+						
 		}	
-		d arr.$toJSON()
+		d list.$toJSON()
 		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.mkb")
 		q $$$OK
 ]]></Implementation>
