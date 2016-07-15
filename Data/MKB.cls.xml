@@ -75,6 +75,7 @@
 <IdLocation>^Data.MKBD</IdLocation>
 <IndexLocation>^Data.MKBI</IndexLocation>
 <StreamLocation>^Data.MKBS</StreamLocation>
+<ExtentSize>10</ExtentSize>
 <Data name="MKBDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -92,6 +93,25 @@
 <Value>Reception</Value>
 </Value>
 </Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="Code">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>16.3</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
 </Storage>
 </Class>
 </Export>
