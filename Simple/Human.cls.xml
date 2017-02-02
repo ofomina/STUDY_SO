@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="Simple.Human">
+<Description>
+This class ....</Description>
 <Super>%Persistent,%Populate</Super>
 <TimeCreated>64110,43072.720737</TimeCreated>
+
+<UDLText name="T">
+<Content><![CDATA[
+// 
+
+]]></Content>
+</UDLText>
+
+<Parameter name="VERSIONPROPERTY">
+<Default>Version</Default>
+</Parameter>
+
+<Property name="Version">
+<Type>%Integer</Type>
+</Property>
 
 <Property name="Name">
 <Type>%String</Type>
@@ -28,7 +45,8 @@
 <Method name="Print">
 <FormalSpec>state:%String="MA"</FormalSpec>
 <Implementation><![CDATA[
-	write !, ..Name, " lives in ", ..Home.State, ", and is "
+	;
+ 	write !, ..Name, " lives in ", ..Home.State, ", and is "
 	if (..Home.State = state) {
 		write "a ", ..#SPECIES, ". "
 	} else {
@@ -122,6 +140,9 @@
 <Value name="6">
 <Value>Work</Value>
 </Value>
+<Value name="7">
+<Value>Version</Value>
+</Value>
 </Data>
 <Property name="%%CLASSNAME">
 <Selectivity>100.0000%</Selectivity>
@@ -183,8 +204,16 @@ class then this oref will be the one returned to the caller of %New method.]]></
 <Description>
 Запрос класса, возвращающий все записи из базы</Description>
 <Type>%SQLQuery</Type>
-<SqlQuery>	SELECT * FROM Human</SqlQuery>
+<SqlQuery>	SELECT * FROM Human order by name asc</SqlQuery>
 <Parameter name="CONTAINID" value="3"/>
+</Query>
+
+<Query name="NewQuery2">
+<Type>%SQLQuery</Type>
+<FormalSpec>Param1:%String</FormalSpec>
+<SqlProc>1</SqlProc>
+<SqlQuery>	SELECT Name,Phone,Home_City,Home_State,Home_Street,Home_Zip FROM Human
+ 	WHERE (Name = :Param1)</SqlQuery>
 </Query>
 </Class>
 </Export>

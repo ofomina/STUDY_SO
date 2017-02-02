@@ -14,38 +14,9 @@
 Карта путей REST web API</Description>
 <Data><![CDATA[
 <Routes>	
-	<Route Url="/test" Method="GET" Call="Test"/>
-	<Route Url="/getPerson/:id" Method="GET" Call="CRUD.Person:Get"/>
-	<Route Url="/getPerson" Method="GET" Call="CRUD.Person:Get"/>
-	
-	<Route Url="/getMKB/:id" Method="GET" Call="CRUD.MKB:Get"/>
-	<Route Url="/getMKB" Method="GET" Call="CRUD.MKB:Get"/>
-	
-	<Route Url="/getReception/:id" Method="GET" Call="CRUD.Receptions:Get"/>
-	<Route Url="/getReception" Method="GET" Call="CRUD.Receptions:Get"/>
-	
-	<Route Url="/getOMSPolice/:id" Method="GET" Call="CRUD.OMSPolices:Get"/>
-	<Route Url="/getOMSPolice" Method="GET" Call="CRUD.OMSPolices:Get"/>
-	
-	<Route Url="/getSMO/:id" Method="GET" Call="CRUD.SMO:Get"/>
-	<Route Url="/getSMO" Method="GET" Call="CRUD.SMO:Get"/>
-	
-	<Route Url="/getDoctor/:id" Method="GET" Call="CRUD.Doctors:Get"/>
-	<Route Url="/getDoctor" Method="GET" Call="CRUD.Doctors:Get"/>
-</Routes>
+		<Route Url="/getTeachers" Method="GET" Call="Data.Teacher:GetAll"/>
+	</Routes>
 ]]></Data>
 </XData>
-
-<Method name="Test">
-<Description>
-Тестовый метод, проверящий работу REST сервиса. 
-Доступен по адресу: http://localhost:57772/csp/healthshare/study/rest/test</Description>
-<ClassMethod>1</ClassMethod>
-<ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[
-	w "{""Person"":[""Name"":""Иван"",""Surname"":""Иванов""],""MO"":[]}"
-	return $$$OK
-]]></Implementation>
-</Method>
 </Class>
 </Export>

@@ -17,7 +17,8 @@
 		}
 		WHILE rset.Next() {
 				s arr = ##class(%ArrayOfDataTypes).%New()
-				d arr.SetAt(rset.Data("ID"), "ID")
+				s id = rset.Data("ID")
+				d arr.SetAt(id, "ID")
 				d arr.SetAt(rset.Data("Name"), "Name")
 				d arr.SetAt(rset.Data("Surname"), "Surname")
 				d arr.SetAt(rset.Data("Patronymic"), "Patronymic")
@@ -26,10 +27,24 @@
 				d arr.SetAt(rset.Data("DocType"), "DocType")
 				d arr.SetAt(rset.Data("DocSeries"), "DocSer")
 				d arr.SetAt(rset.Data("DocNum"), "DocNum")
-				d arr.SetAt(rset.Data("SNILS"),"SNILS")	
+				d arr.SetAt(rset.Data("SNILS"),"SNILS")
+				
+				//Получение данных связанных сущностей
+				//Приемы
+				s recList = ##class(Data.Receptions).GetPersReceptions(id)
+				d arr.SetAt(recList,"Receptions")
+				//Страховые полисы
+				s policesList = ##class(Data.OMSPolices).GetPersPolices(id)
+				d arr.SetAt(policesList,"OMSPolices")
+					
 				d list.Insert(arr)	
 			}
-		d list.$toJSON()
+		if (list.Count() = 0) {
+			s str = {"errorMessage":"В таблице отсутствует запись с указанным ID","errorCode":-1}
+			w str.$toJSON()	
+		} else  {
+			d list.$toJSON()
+		}
 		//d ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL("select * from data.person")
 		q $$$OK
 ]]></Implementation>

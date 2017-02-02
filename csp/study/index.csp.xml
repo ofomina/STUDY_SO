@@ -1,143 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <CSP name="index.csp" application="/csp/healthshare/study/" default="1"><![CDATA[
-<!doctype html>
-
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Сахалинский областной медицинский информационно-аналитический центр</title>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <!-- CSS Initialization -->
-        <link rel="stylesheet" type="text/css" href="lib/css/opensans.css">
-        <link rel="stylesheet" type="text/css" href="lib/css/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="src/css/custom.css">
+<head>
+  <!--<script data-require="modernizr@*" data-semver="2.6.2" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.min.css" />
+  <script src="https://code.angularjs.org/1.4.8/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-mocks.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>-->
 
-        <script language="javascript">
-            // REST web-app name, global variable
-            var RESTWebApp = {appName: '#($GET(^Settings("WF", "WebAppName")))#'};
-        </script>
-    </head>
+  <script src="vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+  <link rel="stylesheet" href="vendor/bootstrap-theme.min.css" />
+  <script src="vendor/angular.js"></script>
+  <script src="vendor/angular-mocks.js"></script>
+  <script src="vendor/ui-bootstrap-tpls.min.js"></script>
 
-    <body ng-app="app" ng-controller="MainCtrl">
+  <link rel="stylesheet" href="style.css" />
 
-        <!-- CONFIRMATION MODAL WINDOW -->
-        <div id="confirmation" class="ui basic modal" style="z-index: 1003;">
-            <i class="close icon"></i>
-            <div class="header">
-                Подтверждение
-            </div>
+  <script src="helpers.js"></script>
+  <script src="backend.js"></script>
+  <script src="script.js"></script>
+</head>
 
-            <div class="content">
-                <div class="description">
-                <p><i class="checkmark big green icon"></i> <span ng-bind="main.confirmationText || 'Вы действительно хотите продолжить?'"></span></p>
-                </div>
-            </div>
+<body ng-app="app" ng-strict-di="" ng-controller="myController">
 
-            <div class="actions">
-                <div class="ui grey deny inverted button">Нет</div>
-                <div class="ui green approve inverted button">Да</div>
-            </div>
+  <p>
+    Double click - edit
+    <br> Enter - save
+  </p>
+    
+<div class="row">
+  <div class="col-md-6">
+    
+
+    <form ng-submit="saveItem(newItem)">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="newItem.name" placeholder="New item">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </span>
+      </div>
+      <a href ng-click="saveItem(newItem)"></a>
+    </form>
+    
+    <br>
+
+    <div class="list-group">
+      <div href="#" ng-repeat="item in items | orderBy: '-id'"
+                  ng-class="['list-group-item', {'active':currentItem.id == item.id}]"  
+                  ng-dblclick="item.is_edit = !item.is_edit" 
+                  ng-click="$parent.currentItem = item">
+        
+        <span ng-hide="item.is_edit">{{item.name}}</span>
+
+        <form ng-show="item.is_edit" ng-submit="saveItem(item)" class="inline-block">
+           <div class="input-group">
+            <input type="text" class="form-control" ng-model="item.name">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="saveItem(item)"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </span>
+          </div>
+        </form>
+
+        <span ng-hide="item.is_edit">
+          <a href ng-click="item.is_edit = true"><span class="glyphicon glyphicon-pencil"></span></a>
+
+          <a href ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Item info</div>
+      <div class="panel-body">
+        
+        <dl class="dl-horizontal" ng-if="currentItem">
+          <dt>Name:</dt>
+          <dd>{{currentItem.id}}</dd>
+          <dt>Name:</dt>
+          <dd>{{currentItem.name}}</dd>
+        </dl>
+        
+        <div class="alert alert-warning" role="alert" ng-hide="currentItem">
+          <b>Warning!</b>
+          Please select item
         </div>
-        <!-- CONFIRMATION MODAL WINDOW -->
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <nav class="ui main menu fixed" ng-show="main.loginState == 1" ng-cloak>
-            <div class="ui container" ng-cloak>
-                <div class="ui item" ng-bind="'Пользователь: ' + main.user" style="font-weight: bold;" ng-if="main.loginState == 1"></div>
-                <a ng-click="main.goMain()" class="ui item" type="button" ng-if="main.page !== 'forms'" >Главная</a>
-                <a class="ui item" type="button" ng-if="main.page == 'object'" ng-click="closeObject()">Список объектов</a>
-                <a href="" ng-show="main.loginState == 1" type="button" ng-click="main.logout();" class="ui right floated item" tabindex="0"><span style="margin-right: 5px">Выйти </span><i class="sign out icon"></i></a>
-            </div>
-        </nav>
+</body>
 
-        <div class="ui middle aligned center aligned grid" ng-show="main.loginState != 1" ng-cloak>
-            <div class="column login">
-
-                <h2 class="ui blue image header">
-                    <img src="assets/images/sakhalin.png" class="image">
-                    <div class="content">
-                        Войдите в ваш аккаунт
-                    </div>
-                </h2>
-
-                <form class="ui large form" role="form" ng-show="main.loginState != 1" ng-model="user"
-                    ng-submit="main.doLogin(user.Login, user.PasswordSetter); user='';" ng-cloak>
-
-                    <div class="ui stacked segment">
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" name="email" placeholder="Имя пользователя" ng-model="user.Login" ng-disabled="main.loading">
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="Пароль" ng-model="user.PasswordSetter" ng-disabled="main.loading">
-                            </div>
-                            <p class="error" ng-show="loginError">
-                                Неправильные имя пользователя и/или пароль.
-                            </p>
-                        </div>
-
-                        <button type="submit" class="ui fluid large blue submit button" ng-disabled="main.loading">Войти</button>
-                    </div>
-
-                    <div class="ui error message"></div>
-
-                </form>
-            </div>
-        </div>
-
-        <div class="ui container content" ng-show="main.loginState == 1">
-            <!-- Loading template -->
-            <ui-view></ui-view>
-        </div>
-
-        <div class="ui active page dimmer" id="loading-dimmer" ng-show="main.busy" ng-cloak>
-            <div class="ui large text loader">Loading</div>
-        </div>
-
-        <div id="success-dimmer" class="ui page dimmer">
-            <div class="content">
-                <h2 class="ui inverted icon header">
-                    <i class="checkmark green icon"></i>
-                    Действие выполнено успешно
-                </h2>
-            </div>
-        </div>
-
-
-
-        <!-- Hooking scripts -->
-        <script language="javascript" src="lib/js/angular.min.js"></script>
-        <script language="javascript" src="lib/js/angular-route.min.js"></script>.
-        <script language="javascript" src="lib/js/angular-ui-router.min.js"></script>
-        <script language="javascript" src="lib/js/smart-table.min.js"></script>
-        <script language="javascript" src="lib/js/angular-cookies.min.js"></script>
-        <script language="javascript" src="lib/js/base64.js"></script>
-
-        <script language="javascript" src="src/js/app.js"></script>
-
-        <script language="javascript" src="src/js/services/RESTSrvc.js"></script>
-        <script language="javascript" src="src/js/services/WorklistSrvc.js"></script>
-        <script language="javascript" src="src/js/services/SessionSrvc.js"></script>
-        <script language="javascript" src="src/js/services/UtilSrvc.js"></script>
-        <script language="javascript" src="src/js/services/FormSrvc.js"></script>
-
-        <script language="javascript" src="src/js/controllers/MainCtrl.js"></script>
-        <script language="javascript" src="src/js/controllers/FormsListCtrl.js"></script>
-        <script language="javascript" src="src/js/controllers/FormCtrl.js"></script>
-        <script language="javascript" src="src/js/controllers/ObjectCtrl.js"></script>
-
-        <script language="javascript" src="lib/js/jquery-1.11.2.min.js"></script>
-        <script language="javascript" src="lib/js/semantic.min.js"></script>
-
-    </body>
 </html>
 ]]></CSP>
 </Export>

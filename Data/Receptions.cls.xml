@@ -93,6 +93,41 @@
 ]]></Implementation>
 </Method>
 
+<Method name="GetListByPersID">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<Implementation><![CDATA[
+ 
+	s query="SELECT * FROM Data.Receptions WHERE Person = "_id	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()		
+	q rset
+]]></Implementation>
+</Method>
+
+<Method name="GetPersReceptions">
+<Description>
+Метод, возвращающий список посещений пациента по его ID</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%ListOfDataTypes</ReturnType>
+<Implementation><![CDATA[
+	s rset = ..GetListByPersID(id)
+	s list = ##class(%ListOfDataTypes).%New()
+	while rset.Next() {
+			s arr = ##class(%ArrayOfDataTypes).%New()
+			d arr.SetAt(rset.Data("ID"), "ID")
+			d arr.SetAt(rset.Data("Date"), "Date")
+			d arr.SetAt(rset.Data("Diagnosis"), "Diagnosis")
+			d arr.SetAt(rset.Data("Doctor"), "Doctor")
+			d arr.SetAt(rset.Data("Person"), "Person")
+			d list.Insert(arr)			
+	}
+	q list
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.ReceptionsD</DataLocation>

@@ -31,12 +31,9 @@
 <Parameter name="POPSPEC" value=":5:##class(FCE.CurrencyUtils).Currency()"/>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship Branch2 As FCE.Branch2 [ Cardinality = parent, Inverse = ATMs ];
-
-]]></Content>
-</UDLText>
+<Property name="Notes">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -45,7 +42,7 @@
 <IdLocation>^FCE.ATMD</IdLocation>
 <IndexLocation>^FCE.ATMI</IndexLocation>
 <StreamLocation>^FCE.ATMS</StreamLocation>
-<ExtentSize>26</ExtentSize>
+<ExtentSize>15</ExtentSize>
 <Data name="ATMDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -55,6 +52,9 @@
 </Value>
 <Value name="3">
 <Value>Address</Value>
+</Value>
+<Value name="4">
+<Value>Notes</Value>
 </Value>
 </Data>
 <Data name="CurrencyBalances">
@@ -68,11 +68,18 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.65</AverageFieldSize>
+<AverageFieldSize>4.4</AverageFieldSize>
 </Property>
 <Property name="Address">
-<Selectivity>5.5556%</Selectivity>
-<AverageFieldSize>1.46</AverageFieldSize>
+<Selectivity>7.6923%</Selectivity>
+<AverageFieldSize>1.93</AverageFieldSize>
+</Property>
+<Property name="Branch">
+<Selectivity>25.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Notes">
+<Selectivity>100.0000%</Selectivity>
 </Property>
 <Property name="SerialNamber">
 <Selectivity>1</Selectivity>
@@ -80,7 +87,11 @@
 </Property>
 <Property name="SerialNumber">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>4.36</AverageFieldSize>
+<AverageFieldSize>4.93</AverageFieldSize>
+</Property>
+<Property name="childsub">
+<Selectivity>6.6667%</Selectivity>
+<AverageFieldSize>1.4</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
 <BlockCount>-4</BlockCount>
