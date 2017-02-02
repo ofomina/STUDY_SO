@@ -3,5 +3,13 @@
 <CSP name="style.css" application="/csp/healthshare/study/" default="1"><![CDATA[
 /* Styles go here */
 
-]]></CSP>
+.inline-block {
+  display: inline-block;
+}
+input {
+      color: black;
+}
+.list-group > div {
+  cursor: pointer;
+}]]></CSP>
 </Export>

@@ -2,52 +2,31 @@
 <Export generator="Cache" version="25">
 <CSP name="script.js" application="/csp/healthshare/study/" default="1"><![CDATA[
 // Code goes here
-angular.module('app', ['ui.router'])
-  .config(['$urlRouterProvider', '$stateProvider', '$locationProvider', '$httpProvider', 
-    function($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
-
-      $stateProvider
-              .state('app', {
-                  url: '/manager',
-                  controller: 'AppController as appCtrl',
-                  templateUrl: 'partial_app.html',
-                  abstract: true,
-              })
-              .state('app.list', {
-                  url: '',
-                  controller: 'ListController',
-                  templateUrl: 'partial_list.html'
-              })
-              .state('app.item', {
-                  url: '/:index',
-                  controller: 'ItemController',
-                  templateUrl: 'partial_item.html'
-              });
-              
-      //$locationProvider.html5Mode(true);
-      $urlRouterProvider.otherwise("/manager");
-  }])
-  .factory('Data', [function(){
-    var data = [
-      {id: 1, name: 'Item 1'},
-      {id: 2, name: 'Item 2'}
-    ];
-    return data;
-  }])
-  .controller('AppController', ['$scope', function($scope) {
-    this.info = 'Info from appCtrl';
-  }])
-  .controller('ListController', ['$scope', 'Data', function($scope, data) {
-    $scope.list = data;
+angular.module('app', ['ui.bootstrap', 'backend']).controller('myController', ['$scope', '$http', function($scope, $http) {
+  
     $scope.newItem = {};
+    $scope.currentItem = null;
     
-    $scope.addNewItem = function(){
-        $scope.list.push($scope.newItem);
-        $scope.newItem = {};
+    function getItems (){
+      $http.get('/api/items').then(function(items) {
+          $scope.items = items.data;
+      });
     }
-  }])
-  .controller('ItemController', ['$scope', '$state', 'Data', function($scope, $state, data) {
-    $scope.item = data[$state.params.index];
-  }]);
-]]></CSP>
+    
+    getItems();
+    
+    $scope.saveItem = function(item){
+      item.is_edit = false;
+      $http.post('/api/items', item).then(function(response){
+        getItems();
+        $scope.newItem = {};
+      })
+    }
+    
+    $scope.removeItem = function(item){
+      $http.delete('/api/items/' + item.id).then(function(){
+        getItems();
+      })
+    }
+}]);]]></CSP>
 </Export>
