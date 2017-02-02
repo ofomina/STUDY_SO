@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.Student">
+<Super>%Persistent,Data.Person2</Super>
+<TimeCreated>64308,52787.395801</TimeCreated>
+
+<Property name="StudentCourses">
+<Type>Dicts.StudentsCourses</Type>
+<Cardinality>many</Cardinality>
+<Inverse>StudentID</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.StudentD</DataLocation>
+<DefaultData>StudentDefaultData</DefaultData>
+<IdLocation>^Data.StudentD</IdLocation>
+<IndexLocation>^Data.StudentI</IndexLocation>
+<StreamLocation>^Data.StudentS</StreamLocation>
+<Data name="StudentDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Surname</Value>
+</Value>
+<Value name="4">
+<Value>Patr</Value>
+</Value>
+<Value name="5">
+<Value>DOB</Value>
+</Value>
+<Value name="6">
+<Value>Gender</Value>
+</Value>
+<Value name="7">
+<Value>Phone</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

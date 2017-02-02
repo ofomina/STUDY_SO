@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Operations.ATM">
+<Description>
+Facade for ATM operations</Description>
+<IncludeCode>%occStatus,%occConstant</IncludeCode>
+<TimeCreated>60288,82963.622576</TimeCreated>
+
+<Parameter name="FEERATE">
+<Default>.025</Default>
+</Parameter>
+
+<Method name="GetExchangeRate">
+<Description>
+Calculate Exchange Rate
+generates a random value from .1 to 2
+will be replaced with a lookup</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>currencyOut:FCE.Currency,currencyIn:FCE.Currency</FormalSpec>
+<ReturnType>%Decimal</ReturnType>
+<SqlProc>1</SqlProc>
+<Implementation><![CDATA[
+	set rate = (($random(20) / 10) + .1)
+	return rate
+]]></Implementation>
+</Method>
+
+<Method name="GetAmountOutAndFee">
+<Description>
+Perform calculations for a request</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>amountIn:%Numeric,exchangeRate:%Decimal,*fee:%Numeric,*amountOut:%Numeric</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<SqlProc>1</SqlProc>
+<Implementation><![CDATA[
+	set fee = amountIn * ..#FEERATE
+	set amountOut = (amountIn - fee) * exchangeRate
+	return $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="ProcessRequest">
+<Description>
+Process initial request
+Do calculations, validate request
+Return order linked to ATM</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>orderATM:FCE.ATM,requestor:%String,requestorEmail:%String,currencyOut:FCE.Currency,currencyIn:FCE.Currency,amountIn:%Numeric</FormalSpec>
+<ReturnType>FCE.CurrencyOrder</ReturnType>
+<Implementation><![CDATA[
+	set exchangeRate = ..GetExchangeRate(currencyOut, currencyIn)
+	do ..GetAmountOutAndFee(amountIn, exchangeRate, .fee, .amountOut) // using pass by reference
+	set stockAmountOut = orderATM.CurrencyBalances.GetAt(currencyOut)
+	// check stock here, even though Update has the check also
+	if (amountOut > stockAmountOut) {
+		return $$$NULLOREF
+	}
+	else {
+		set order = ##class(FCE.CurrencyOrder).%New(currencyOut,
+		                                            amountOut,
+		                                            currencyIn,
+		                                            amountIn)
+		// if order was created, attach orderATM
+		if $IsObject(order) {
+			set order.ATM = orderATM
+			set order.Requestor = requestor
+			set order.RequestorEmail = requestorEmail
+			set order.ExchangeRate = exchangeRate
+			set order.Fee = fee
+		}
+		return order
+	}
+]]></Implementation>
+</Method>
+
+<Method name="ProcessOrder">
+<Description>
+Process an order, with a payment (optionally made from an account)
+1. Link objects
+2. Prepare for transaction
+3. Tstart, process payment, Tcommit
+4. Report errors, set error status</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[order:FCE.CurrencyOrder,payment:FCE.Payment,account:FCE.AccountHolder="",&message:%String]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	if $IsObject(account) { set order.AccountHolder = account }
+	
+	set UTCTimeStamp = $system.SYS.TimeStamp()
+	set order.DateStamp = $p(UTCTimeStamp, ",", 1)
+	set order.TimeStamp = $p(UTCTimeStamp, ",", 2)
+	set status = $$$OK, message = "" // initialize
+	
+
+	// check that account has valid and sufficient currency
+	if $IsObject(account) &&
+	       ( (account.Currency '= order.CurrencyIn) ||
+	         (account.Balance < order.AmountIn) ) {
+		set order.Status = "Rejected"
+	}
+	else {
+		tstart // start a nested transaction
+		set status = payment.Process(order, .message)
+
+		if $$$ISERR(status)
+		{
+			set order.Status = "Problem"
+			trollback 1
+		}
+		else {
+			set order.Payment = payment
+			set order.Status = "Completed"
+			tcommit
+		}
+	}
+	set orderSaved = order.%Save()
+	set finalStatus = $$$ADDSC(status, orderSaved)
+	if ($$$ISERR(finalStatus)) {return finalStatus}
+	else {
+		do ##class(FCE.Operations.ATM).SendConfirmation(order)
+		return $$$OK
+	}
+]]></Implementation>
+</Method>
+
+<Method name="SendConfirmation">
+<Description>
+Send email confirmation for processed order</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>order:FCE.CurrencyOrder</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	//disabled for now; comment following line to enable
+	return 1
+	// define an smtp server
+	set mailServer = ##class(%Net.SMTP).%New()
+	set mailServer.smtpserver = "mail.intersystems.com" ; your smtp server
+	set mailServer.timezone = "-0500"  ; your timezone
+	// define a message
+	set message = ##class(%Net.MailMessage).%New()
+	set message.Subject = "Confirmation of " _ order.Status _ " currency exchange"
+	set message.From = "auto-confirm@fcxbank.com"
+	do message.To.Insert(order.RequestorEmail)
+	// add text
+	set line(1) = "Hello " _ order.Requestor
+	set line(2) = $$$NL _ $$$NL _ "Your exchange of " _ order.AmountIn _ " " _ order.CurrencyIn
+	set line(3) = $$$NL _ $justify("for ",17) _ order.AmountOut _ " " _ order.CurrencyOut
+	set line(4) = $$$NL _ "has been " _ order.Status _ "."
+	for i=1:1:4 {
+		do message.TextData.Write(line(i))
+	}
+	// send the email
+	set status = mailServer.Send(message)
+	return status
+]]></Implementation>
+</Method>
+
+<Method name="CreatePayment">
+<Description>
+create different kinds of payments</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>paymentType:%String,ccType:%String,ccNumber:%String,ccExpiration:%Date</FormalSpec>
+<ReturnType>FCE.Payment</ReturnType>
+<Implementation><![CDATA[
+	if (paymentType = "Credit Card") {
+		set cc = ##class(FCE.CreditCard).%New()
+		set cc.Type = ccType,
+		    cc.Number = ccNumber,
+		    cc.ExpirationDate = ccExpiration
+		return cc
+	}
+	elseif (paymentType = "Cash") {
+		return ##class(FCE.Cash).%New()
+	}
+	elseif (paymentType = "Account") {
+		return ##class(FCE.AccountPayment).%New()
+	}
+	else { return $$$NULLOREF }
+]]></Implementation>
+</Method>
+
+<Method name="GetAccountByID">
+<Description>
+lookup accounts by ID number</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ID:%Integer</FormalSpec>
+<ReturnType>FCE.AccountHolder</ReturnType>
+<Implementation><![CDATA[	return ##class(FCE.AccountHolder).%OpenId(ID)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

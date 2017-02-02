@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.CurrencyImage">
+<Super>%Persistent</Super>
+<TimeCreated>60851,55659.204876</TimeCreated>
+
+<Parameter name="FILELIST">
+<Default>-Usa.jpg-Euro.jpg-India.jpg-Venezuela.jpg-Japan.jpg-Mexico.jpg-SouthAfrica.jpg-Brazil.jpg-Canada.jpg-Russia.jpg</Default>
+</Parameter>
+
+<Property name="Currency">
+<Type>FCE.Currency</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Image">
+<Type>%Stream.GlobalBinary</Type>
+</Property>
+
+<Method name="ImportImages">
+<Description>
+Load images from a directory
+Note: filenames MUST correspond to VALUELIST from FCE.Currency class</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>directory:%String</FormalSpec>
+<Implementation><![CDATA[
+	#; define Abbreviations macro to use wrapper method or $parameter
+	#if $piece($$$CacheVersion,".",1,2)<2010.2
+	#define Abbreviations ##class(FCE.Currency).Abbreviations()
+	#else
+	#define Abbreviations $parameter("FCE.Currency","VALUELIST")
+	#endif
+	
+	set abbreviations = $$$Abbreviations
+	
+	set currencyCount = $length(abbreviations, "-")
+	// skip first empty "-" piece in abbreviations list
+	for image = 2 : 1 : currencyCount
+	{
+		set currencyImage = ##class(FCE.CurrencyImage).%New()
+		set currencyImage.Currency = $piece(abbreviations, "-", image)
+	
+		set file = ##class(%Stream.FileBinary).%New()
+		set name = $piece(..#FILELIST, "-", image)
+		set file.Filename = directory _ name
+		
+		// does file exist?
+		if (file.Size = 0) {
+			write !, "Couldn't import ", file.Filename
+			continue
+		}
+		
+		do currencyImage.Image.CopyFrom(file)
+		set status = currencyImage.%Save()
+		do $system.Status.DisplayError(status)
+		write !, name, " imported"
+		
+		set file = ""
+		set currencyImage = ""
+	}
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^FCE.CurrencyImageD</DataLocation>
+<DefaultData>CurrencyImageDefaultData</DefaultData>
+<IdLocation>^FCE.CurrencyImageD</IdLocation>
+<IndexLocation>^FCE.CurrencyImageI</IndexLocation>
+<StreamLocation>^FCE.CurrencyImageS</StreamLocation>
+<Data name="CurrencyImageDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Currency</Value>
+</Value>
+<Value name="3">
+<Value>Image</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

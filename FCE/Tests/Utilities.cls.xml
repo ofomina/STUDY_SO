@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Tests.Utilities">
+<Description>
+Utilities for development</Description>
+<TimeCreated>60298,40297.044568</TimeCreated>
+
+<Method name="DestroyAll">
+<Description>
+Delete all data and run tests</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	do ##class(FCE.Branch).%KillExtent()
+	do ##class(FCE.ATM).%KillExtent()
+	do ##class(FCE.RealEstate).%KillExtent()
+	read !, "Data deleted. Press <Enter> to run tests.", x
+	do ##class(FCE.Tests.BasicTests).Run()
+	read !, "Press <Enter> to continue.", x
+]]></Implementation>
+</Method>
+
+<Method name="CreateAll">
+<Description>
+Create data and run tests</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>base:%Integer=5</FormalSpec>
+<Implementation><![CDATA[
+	do ##class(FCE.RealEstate).Populate(base * 10)
+	// assigns real estate objects to new branches and ATMs
+	do ##class(FCE.Branch).Populate(base)
+	do ##class(FCE.ATM).Populate(base * 3)
+	read !, "Data added. Press <Enter> to run tests.", x
+	do ##class(FCE.Tests.BasicTests).Run()
+	read !, "Press <Enter> to continue.", x
+]]></Implementation>
+</Method>
+</Class>
+</Export>

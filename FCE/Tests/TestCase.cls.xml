@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.Tests.TestCase">
+<Super>%UnitTest.TestCase</Super>
+<TimeCreated>62061,66783.539102</TimeCreated>
+
+<Method name="Run">
+<Description>
+Helper method</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    set testSuite = "FCETests"
+    
+    // set up ^UnitTestRoot if not already set
+    if '$data(^UnitTestRoot) {
+    	set mainFolder = "c:\Foundations\" 
+	    set st = ##class(%File).CreateDirectoryChain(mainFolder _ testSuite)
+	    if $$$ISOK(st) { set ^UnitTestRoot = mainFolder }
+	    else { write !, "UnitTestRoot folder could not be created. Consult with instructor." }
+    }
+    
+    set testCase = ..%ClassName(1) // this test case
+    set test = testSuite _ ":" _ testCase
+	set quals = "/noload/norecursive/nodelete"
+    do ##class(%UnitTest.Manager).RunTest(test, quals)
+    return
+]]></Implementation>
+</Method>
+</Class>
+</Export>

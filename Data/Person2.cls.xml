@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.Person2">
+<Abstract>1</Abstract>
+<TimeCreated>64308,53010.813254</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+</Property>
+
+<Property name="Surname">
+<Type>%String</Type>
+</Property>
+
+<Property name="Patr">
+<Type>%String</Type>
+</Property>
+
+<Property name="DOB">
+<Type>%Date</Type>
+</Property>
+
+<Property name="Gender">
+<Type>%String</Type>
+</Property>
+
+<Property name="Phone">
+<Type>%String</Type>
+<Parameter name="PATTERN" value="1&quot;+7&quot;10n"/>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Property TableName As %String;
+
+]]></Content>
+</UDLText>
+
+<Method name="GetRecords">
+<Description>
+Возвращает все записи справочника</Description>
+<ReturnType>%ResultSet</ReturnType>
+<Implementation><![CDATA[
+	s query="SELECT * FROM Data."_..%ClassName()	
+	s rset=##class(%ResultSet).%New("%DynamicQuery:SQL")
+	s sc=rset.Prepare(query)
+	s sc=rset.Execute()	
+	q rset
+]]></Implementation>
+</Method>
+</Class>
+</Export>

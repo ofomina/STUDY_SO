@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.Teacher">
+<Super>%Persistent,Data.Person2</Super>
+<TimeCreated>64308,52800.25026</TimeCreated>
+
+<Property name="TeacherCourses">
+<Type>Dicts.TeacherCourses</Type>
+<Cardinality>many</Cardinality>
+<Inverse>TeacherID</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Методы CRUD
+
+]]></Content>
+</UDLText>
+
+<Method name="GetAll">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s st = $$$OK
+	try {
+		s resultArr = ##class(%ArrayOfDataTypes).%New()  
+	 	s body = ##class(%ListOfDataTypes).%New() 	
+		//получаем все записи таблицы
+		s rset = ##class(Data.Teacher).%New().GetRecords()
+		
+		WHILE rset.Next() {
+			s arr = ##class(%ArrayOfDataTypes).%New()
+	 		d arr.SetAt(rset.Data("ID"), "ID")
+	 		d arr.SetAt(rset.Data("Name"), "Name")
+	 		d arr.SetAt(rset.Data("Surname"), "Surname")
+	 		// ... 
+	 		d body.Insert(arr)	
+		}	
+		d resultArr.SetAt(body, "data")
+		d resultArr.SetAt("0", "errorCode")
+		d resultArr.SetAt("Операция прошла успешно", "errorMsg")
+		w ##class(Utils.CacheJSON).Encode(resultArr)	 	
+	} catch ex {
+		w $system.Status.GetErrorText(ex.AsStatus(),"ru")
+	}
+	q st
+]]></Implementation>
+</Method>
+
+<Method name="GetById">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="Save">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="Delete">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	q $$$OK
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.TeacherD</DataLocation>
+<DefaultData>TeacherDefaultData</DefaultData>
+<IdLocation>^Data.TeacherD</IdLocation>
+<IndexLocation>^Data.TeacherI</IndexLocation>
+<StreamLocation>^Data.TeacherS</StreamLocation>
+<Data name="TeacherDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Surname</Value>
+</Value>
+<Value name="4">
+<Value>Patr</Value>
+</Value>
+<Value name="5">
+<Value>DOB</Value>
+</Value>
+<Value name="6">
+<Value>Gender</Value>
+</Value>
+<Value name="7">
+<Value>Phone</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

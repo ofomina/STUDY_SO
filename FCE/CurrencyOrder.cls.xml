@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="FCE.CurrencyOrder">
+<Description>
+An order for currency.</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>60287,60303.553345</TimeCreated>
+
+<Property name="Requestor">
+<Description>
+name of requestor</Description>
+</Property>
+
+<Property name="RequestorEmail">
+</Property>
+
+<Property name="AmountOut">
+</Property>
+
+<Property name="CurrencyOut">
+</Property>
+
+<Property name="AmountIn">
+</Property>
+
+<Property name="CurrencyIn">
+</Property>
+
+<Property name="ExchangeRate">
+</Property>
+
+<Property name="Fee">
+</Property>
+
+<Property name="DateStamp">
+</Property>
+
+<Property name="TimeStamp">
+</Property>
+
+<Property name="Satisfaction">
+<Description>
+Satisfaction with the service on this order</Description>
+</Property>
+
+<Property name="Status">
+<Description><![CDATA[
+Requested: initial request<br>
+Pending:   only if awaiting approval<br>
+Rejected:  not approved by bank<br>
+Paid:      currency received by ATM, outgoing currency to be picked up<br>
+Completed: outgoing currency paid to customer<br>
+Problem:   problem in system<br>
+Canceled:  canceled by customer<br>]]></Description>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^FCE.CurrencyOrderD</DataLocation>
+<DefaultData>CurrencyOrderDefaultData</DefaultData>
+<IdLocation>^FCE.CurrencyOrderD</IdLocation>
+<IndexLocation>^FCE.CurrencyOrderI</IndexLocation>
+<StreamLocation>^FCE.CurrencyOrderS</StreamLocation>
+<Data name="CurrencyOrderDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Requestor</Value>
+</Value>
+<Value name="3">
+<Value>RequestorEmail</Value>
+</Value>
+<Value name="4">
+<Value>AmountOut</Value>
+</Value>
+<Value name="5">
+<Value>CurrencyOut</Value>
+</Value>
+<Value name="6">
+<Value>AmountIn</Value>
+</Value>
+<Value name="7">
+<Value>CurrencyIn</Value>
+</Value>
+<Value name="8">
+<Value>ExchangeRate</Value>
+</Value>
+<Value name="9">
+<Value>Fee</Value>
+</Value>
+<Value name="10">
+<Value>DateStamp</Value>
+</Value>
+<Value name="11">
+<Value>TimeStamp</Value>
+</Value>
+<Value name="12">
+<Value>Satisfaction</Value>
+</Value>
+<Value name="13">
+<Value>Status</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
